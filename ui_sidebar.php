@@ -5,11 +5,30 @@
 
 	class UISideBar
 	{
-		private $active="";
+		private $active;
+
+		private $screen_width;
+		private $screen_height;
+
+		private $sidebar_width;			//bootstarp中屏幕被分为12列宽，我们在PC桌面宽度环境，导航栏宽度设为1。手机/平板纵屏中，导航栏宽度设为2
 
 		public function __construct($a)
 		{
 			$this->active=$a;
+
+			init_session();
+
+			$this->screen_width	=$_SESSION["screen_width"	];
+			$this->screen_height=$_SESSION["screen_height"	];
+
+			if($this->screen_width>$this->screen_height)		//横向布局
+			{
+				$this->sidebar_width=1;
+			}
+			else									//纵向布局
+			{
+				$this->sidebar_width=2;
+			}
 		}
 
 		private function echo_item($link,$text)
@@ -24,30 +43,16 @@
 
 		private function echo_header()
 		{
-			init_session();
+			echo_html_header("ChinaMall ERP System");
 
-			echo_html_header("CMI MoneyCabinet");
-
-			echo_title();
-
-			echo '<center><p><h5>';
-
-			echo_span_label("primary",$_SESSION['service_hall_fullname']);echo' ';
-			echo_span_label("Warning",$_SESSION['usercode']);echo' ';
-			echo_span_label("default",$_SESSION['name']);echo' ';
-			echo_span_label("danger",$_SESSION['currency']);
-
-			echo '</h5></p>
-				  </center>';
-
-			echo_hr();
+			//echo_hr();
 		}
 
 		public function start()
 		{
 			$this->echo_header();
 
-			echo '<div class="col-xs-2 bs-docs-sidebar">
+			echo '<div class="col-xs-'.$this->sidebar_width.' bs-docs-sidebar" style="padding-top: 15px;">
 					<div class="list-group bs-docs-sidenav affix-top">';
 
 			$this->echo_item("main",					"现金总览"	);
@@ -66,7 +71,7 @@
 
 			echo '</div>
 				</div>
-					<div div class="col-xs-10">';
+					<div div class="col-xs-'.(12-$this->sidebar_width).'">';
 		}
 
 		public function end()
