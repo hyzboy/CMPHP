@@ -55,19 +55,8 @@
 			echo '<div class="col-xs-'.$this->sidebar_width.' bs-docs-sidebar" style="padding-top: 15px;">
 					<div class="list-group bs-docs-sidenav affix-top">';
 
-			$this->echo_item("main",					"现金总览"	);
-			$this->echo_item("main_money_cabinet",		"钱柜"		);
-			$this->echo_item("main_service_hall",		"营业厅"		);
-			$this->echo_item("main_staff",				"工作人员"	);
-			$this->echo_item("main_customer",			"客户总览"	);
-			$this->echo_item("main_customer_currency",	"客户详情"	);
-			$this->echo_item("main_deposit",			"存款"		);
-			$this->echo_item("main_teller",				"取款"		);
-			$this->echo_item("main_exchange",           "存款兑换"   );
-			$this->echo_item("main_cash_exchange",		"现金兑换"	);
-			$this->echo_item("main_transfer",			"汇款"		);
-			$this->echo_item("main_transfer_to_bank",	"汇至银行"	);
-			$this->echo_item("main_transfer_from_bank",	"银行入帐"	);
+            foreach($_SESSION["side_bar"] as $link => $text)
+                $this->echo_item($link,$text);
 
 			echo '</div>
 				</div>
