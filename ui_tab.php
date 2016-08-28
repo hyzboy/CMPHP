@@ -29,7 +29,7 @@
                 if($label==$this->active)
                     echo ' class="active"';
 
-                echo '><a href="#'.$label.'">'.$text.'</a></li>';
+                echo '><a href="'.$label.'">'.$text.'</a></li>';
             }
 
             echo '</ul>
