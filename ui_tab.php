@@ -1,69 +1,48 @@
 ﻿<?php
 
-	class UITabView
-	{
-		private $title=null;
-		private $active_page=null;
+    class UITabView
+    {
+        private $id=null;
+		private $active=null;
+		private $tab_array=null;
 
-		public function __construct($name)
+		public function __construct($i,$a)
 		{
-			$this->title=$name;
+			$this->id=$i;
+			$this->active=$a;
 		}
 
-		public function tab_start($active)
-		{
-			echo '<div id="'.$this->title.'">
-					<ul class="nav nav-tabs">';
+        public function set_tab($ta)
+        {
+            $this->tab_array=$ta;
+        }
 
-			$this->count=0;
-			$this->active_page=$active;
-		}
+        public function out_html()
+        {
+            echo '<div id="'.$this->id.'">
+                    <ul class="nav nav-tabs">';
 
-		public function tab_add($label,$name)
-		{
-			if($this->active_page==$label)
-				echo '<li class="active"><a href="#'.$label.'">'.$name.'</a></li>';
-			else
-				echo '<li><a href="#'.$label.'">'.$name.'</a></li>';
-		}
+            foreach($this->tab_array as $label=>$text)
+            {
+                echo '<li';
 
-		public function content_start()
-		{
-			echo '</ul>
+                if($label==$this->active)
+                    echo ' class="active"';
 
-				  <div class="tab-content">';
-		}
+                echo '><a href="#'.$label.'">'.$text.'</a></li>';
+            }
 
-		public function page_start($label)
-		{
-			if($this->active_page==$label)
-				echo '<div id="'.$label.'">';
-			else
-				echo '<div id="'.$label.'" class="tab-pane">';
-		}
+            echo '</ul>
+                </div>';
+        }
+    };//class UITabView
 
-		public function page_end()
-		{
-			echo '</div>';
-		}
+    function create_tab_view($id,$active,$tab_array)
+    {
+        $tab=new UITabView($id,$active);
 
-		public function tab_end()
-		{
-			echo '</div>
-				  </div>';
+        $tab->set_tab($tab_array);
 
-			echo "<script>
-					YUI().use(
-				  'aui-tabview',
-				  function(Y) {
-				    new Y.TabView(
-				      {
-				        srcNode: '#".$this->title."'
-				      }
-				    ).render();
-				  }
-				);
-        		</script>";
-		}
-	};//class UITabView
+        $tab->out_html();
+    }
 ?>
