@@ -12,23 +12,10 @@
 
 		private $sidebar_width;			//bootstarp中屏幕被分为12列宽，我们在PC桌面宽度环境，导航栏宽度设为1。手机/平板纵屏中，导航栏宽度设为2
 
-		public function __construct($a)
+		public function __construct($a,$sw)
 		{
 			$this->active=$a;
-
-			init_session();
-
-			$this->screen_width	=$_SESSION["screen_width"	];
-			$this->screen_height=$_SESSION["screen_height"	];
-
-			if($this->screen_width>$this->screen_height)		//横向布局
-			{
-				$this->sidebar_width=1;
-			}
-			else									//纵向布局
-			{
-				$this->sidebar_width=2;
-			}
+			$this->sidebar_width=$sw;
 		}
 
 		private function echo_item($link,$text)
@@ -41,21 +28,13 @@
 			echo '" href="'.$link.'.php">'.$text.'</a>';
 		}
 
-		private function echo_header()
+		public function start($list)
 		{
-			echo_html_header("ChinaMall ERP System");
-
-			//echo_hr();
-		}
-
-		public function start()
-		{
-			$this->echo_header();
-
+            echo '<div class="row" style="margin-left: 0px; margin-right: 0px;">';
 			echo '<div class="col-xs-'.$this->sidebar_width.' bs-docs-sidebar" style="padding-top: 15px;">
 					<div class="list-group bs-docs-sidenav affix-top">';
 
-            foreach($_SESSION["side_bar"] as $link => $text)
+            foreach($list as $link => $text)
                 $this->echo_item($link,$text);
 
 			echo '</div>
@@ -65,9 +44,8 @@
 
 		public function end()
 		{
-			echo '</div>';
-
-			echo_html_end();
+			echo '</div>
+                </div>';
 		}
 	};//class UISideBar
 ?>
