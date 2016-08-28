@@ -60,7 +60,7 @@
 
 			echo '</div>
 				</div>
-					<div div class="col-xs-'.(12-$this->sidebar_width).'">';
+					<div div class="col-xs-'.(12-$this->sidebar_width).'" style="padding-left: 0px;">';
 		}
 
 		public function end()
