@@ -8,8 +8,8 @@
                     <meta charset="utf-8">
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                     <meta name="viewport" content="initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0, width=device-width" />
-                    <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
-                    <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet"/></link>
+                    <script src="3rdpty/aui-min.js"></script>
+                    <link href="3rdpty/bootstrap3/css/bootstrap.min.css" rel="stylesheet"/></link>
                 </head>
                 <body>
                 ';
