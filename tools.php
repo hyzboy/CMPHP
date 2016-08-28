@@ -8,16 +8,11 @@
                     <meta charset="utf-8">
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                     <meta name="viewport" content="initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0, width=device-width" />
-                    <script src="3rdpty/aui-min.js"></script>
-                    <link href="3rdpty/bootstrap3/css/bootstrap.min.css" rel="stylesheet"/></link>
+                    <script src="3rdpty/aui/aui-min.js"></script>
+                    <link href="3rdpty/aui-css/css/bootstrap.min.css" rel="stylesheet"/></link>
                 </head>
                 <body>
                 ';
-    }
-
-    function echo_title()
-    {
-    	echo '<center><h1 style="margin-top: 10px">Enterprise Resource Management System</h1></center>';
     }
 
     function echo_page_header($header,$subtext)
