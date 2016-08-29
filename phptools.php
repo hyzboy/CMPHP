@@ -10,3 +10,4 @@
 
 	require_once "ui_tab.php";
 	require_once 'ui_sidebar.php';
+	require_once "ui_navbar.php";
