@@ -39,6 +39,15 @@
             $this->link=$l;
         }
 
+        public function IsSeparator()
+        {
+            if($this->text==null
+             &&$this->link==null)
+                return(true);
+            else
+                return(false);
+        }
+
         public function SetSubMenu($sm)
         {
             $this->sub_menu=$sm;
@@ -113,12 +122,19 @@
                 }
                 else
                 {
-                    if($this->active==$mi->GetLink())
-                        echo '<li class="active">';
+                    if($mi->IsSeparator())
+                    {
+                        echo '<li role="separator" class="divider"></li>';
+                    }
                     else
-                        echo '<li>';
+                    {
+                        if($this->active==$mi->GetLink())
+                            echo '<li class="active">';
+                        else
+                            echo '<li>';
 
-                    echo '<a href="'.$mi->GetLink().'">'.$mi->GetText().'</a></li>';
+                        echo '<a href="'.$mi->GetLink().'">'.$mi->GetText().'</a></li>';
+                    }
                 }
             }
         }
