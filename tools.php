@@ -11,6 +11,8 @@
 
                     <script src="3rdpty/jquery-3.1.0.js"></script>
 
+                    <link rel="stylesheet" href="3rdpty/font-awesome/css/font-awesome.min.css">
+
                     <link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap.css">
                     <link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">
                     <script src="3rdpty/bootstrap/js/bootstrap.js"></script>
@@ -33,6 +35,11 @@
     {
         echo '
 			</body></html>';
+    }
+
+    function echo_div($id)
+    {
+        echo '<div id="'.$id.'"></div>';
     }
 
     function echo_hr()
@@ -58,6 +65,16 @@
     function echo_span_label($style,$text)
     {
     	echo '<span class="label label-'.$style.'">'.$text.'</span>';
+    }
+
+    function get_icon_html($name)
+    {
+        return '<i class="fa fa-'.$name.'" aria-hidden="true"></i>';
+    }
+
+    function echo_icon($name)
+    {
+        echo get_icon_html($name);
     }
 
     function echo_alert($style,$text)
