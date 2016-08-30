@@ -6,7 +6,6 @@
 
 		private $method;
 		private $action=null;
-		private $on_submit=null;
 
 		private $style_class="form-inline";
 
@@ -32,22 +31,9 @@
 			$this->action=$a;
 		}
 
-		public function __construct4($n,$m,$a,$o)
-		{
-			$this->name=$n;
-			$this->method=$m;
-			$this->action=$a;
-			$this->on_submit=$o;
-		}
-
 		public function get_name()
 		{
 			return $name;
-		}
-
-		public function set_on_sumbit($s)
-		{
-			$this->on_submit=$s;
 		}
 
 		public function set_class($s)
@@ -70,7 +56,6 @@
 			echo '<form name="'.$this->name.'" method="'.$this->method.'" ';
 
 			if($this->action		!=null)echo 'action="'	.$this->action		.'" ';
-			if($this->on_submit		!=null)echo 'onsubmit="return '.$this->on_submit	.'()" ';
 			if($this->style_class	!=null)echo 'class="'	.$this->style_class	.'">';
 
 			$_SESSION["final_submit"]=time();
