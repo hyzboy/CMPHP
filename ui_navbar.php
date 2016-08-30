@@ -104,7 +104,7 @@
                     echo '<li class="dropdown">';
 
 
-                    echo '  <a class="dropdown-toggle" data-toggle="dropdown" ';
+                    echo '<a class="dropdown-toggle" data-toggle="dropdown" ';
 
                     if(array_key_exists("link",$mi))
                         echo 'href="'.$mi["link"].'" ';
