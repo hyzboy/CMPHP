@@ -2,72 +2,25 @@
 
     //参考：http://www.w3schools.com/bootstrap/bootstrap_navbar.asp
 
-    class MenuItem
+    function create_separator_menu()
     {
-        private $text=null;
-        private $link=null;
-        private $sub_menu=null;
+        return "-";
+    }
 
-		public function __construct()
-		{
-			$a = func_get_args();
-			$i = func_num_args();
+    function create_menu($text)
+    {
+        return array("text"=>$text);
+    }
 
-			if (method_exists($this,$f='__construct'.$i))
-				call_user_func_array(array($this,$f),$a);
-		}
+    function create_menu_link($text,$link)
+    {
+        return array("text"=>$text,"link"=>$link);
+    }
 
-		public function __construct1($s)
-        {
-            $this->sub_menu=$s;
-        }
-
-        public function __construct2($t,$l)
-        {
-            $this->Set($t,$l);
-        }
-
-        public function __construct3($t,$l,$s)
-        {
-            $this->Set($t,$l);
-            $this->sub_menu=$s;
-        }
-
-        public function Set($t,$l)
-        {
-            $this->text=$t;
-            $this->link=$l;
-        }
-
-        public function IsSeparator()
-        {
-            if($this->text==null
-             &&$this->link==null)
-                return(true);
-            else
-                return(false);
-        }
-
-        public function SetSubMenu($sm)
-        {
-            $this->sub_menu=$sm;
-        }
-
-        public function GetText()
-        {
-            return $this->text;
-        }
-
-        public function GetLink()
-        {
-            return $this->link;
-        }
-
-        public function GetSubMenu()
-        {
-            return $this->sub_menu;
-        }
-    };//class MenuItem
+    function create_menu_sub($text,$sub_menu)
+    {
+        return array("text"=>$text,"sub_menu"=>$sub_menu);
+    }
 
     class UINavBar
     {
@@ -76,12 +29,12 @@
         private $brand=null;
         private $brand_link=null;
         private $menu=null;
-        private $active=null;
+//        private $active=null;
 
-        public function __construct($m,$a)
+        public function __construct($m)//,$a)
         {
             $this->menu=$m;
-            $this->active=$a;
+//             $this->active=$a;
         }
 
         public function set_style($s)
@@ -108,33 +61,42 @@
 
             foreach($m as $mi)
             {
-                $sub_menu=$mi->GetSubMenu();
-
-                if($sub_menu!=null)     //子菜单
+                if(!is_array($mi)&&$mi=="-")
                 {
-                    echo '<li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="'.$mi->GetLink().'" role="button" aria-haspopup="true" aria-expanded="false">'.$mi->GetText().'
+                    echo '<li role="separator" class="divider"></li>';
+                    continue;
+                }
+
+                if(array_key_exists("sub_menu",$mi))        //有子菜单
+                {
+                    echo '<li class="dropdown">';
+
+
+                    echo '  <a class="dropdown-toggle" data-toggle="dropdown" ';
+
+                    if(array_key_exists("link",$mi))
+                        echo 'href="'.$mi["link"].'" ';
+
+                        echo 'role="button" aria-haspopup="true" aria-expanded="false">'.$mi["text"].'
                                 <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">';
-                        $this->echo_menu($sub_menu);
+                                <ul class="dropdown-menu">';
+
+                        $this->echo_menu($mi["sub_menu"]);
+
                     echo '</ul>
                         </li>';
                 }
                 else
                 {
-                    if($mi->IsSeparator())
-                    {
-                        echo '<li role="separator" class="divider"></li>';
-                    }
-                    else
-                    {
-                        if($this->active==$mi->GetLink())
-                            echo '<li class="active">';
-                        else
-                            echo '<li>';
+//                         if($this->active==$mi->GetLink())
+//                             echo '<li class="active">';
+//                         else
+                        echo '<li>';
 
-                        echo '<a href="'.$mi->GetLink().'">'.$mi->GetText().'</a></li>';
-                    }
+                        if(array_key_exists("link",$mi))
+                            echo '<a href="'.$mi["link"].'">'.$mi["text"].'</a></li>';
+                        else
+                            echo '<a>'.$mi["text"].'</a></li>';
                 }
             }
         }
@@ -160,7 +122,7 @@
                     <ul class="nav navbar-nav">';
 
             if($this->menu!=null)
-                $this->echo_menu($this->menu->GetSubMenu());
+                $this->echo_menu($this->menu);
 
             echo '</ul>
                 </div>
