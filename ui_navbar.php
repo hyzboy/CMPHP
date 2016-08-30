@@ -22,6 +22,38 @@
         return array("text"=>$text,"sub_menu"=>$sub_menu);
     }
 
+//     $member_menu=create_menu_sub("员工",array(create_menu("员工列表"),
+//                                                 create_separator_menu(),
+//                                                 create_menu("增加员工"),
+//                                                 create_menu("删除员工"),
+//                                                 create_menu("查找员工")));
+//
+//     $commodity_menu=create_menu_sub("商品",array(create_menu("商品列表"),
+//                                                 create_separator_menu(),
+//                                                 create_menu("增加商品"),
+//                                                 create_menu("删除商品"),
+//                                                 create_menu("查找商品")));
+//
+//     $supplier_menu=create_menu_sub("供应商",array(   create_menu("供应商列表"),
+//                                                     create_separator_menu(),
+//                                                     create_menu("增加供应商"),
+//                                                     create_menu("删除供应商"),
+//                                                     create_menu("查找供应商")));
+//
+//     $client_menu=create_menu_sub("客户",array(   create_menu("客户列表"),
+//                                                     create_separator_menu(),
+//                                                     create_menu("增加客户"),
+//                                                     create_menu("删除客户"),
+//                                                     create_menu("查找客户")));
+//
+//     $main_menu=array(  create_menu("欢迎"),
+//                         $member_menu,
+//                         $commodity_menu,
+//                         $supplier_menu,
+//                         $client_menu);
+//
+//     echo json_encode($main_menu,JSON_UNESCAPED_UNICODE);
+
     class UINavBar
     {
         private $style="navbar-default";
