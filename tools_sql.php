@@ -1,26 +1,33 @@
 ﻿<?php
 
-    $cmi_sql=null;
+    $global_sql=null;
 
-    function get_sql()
+    function connect_to_sql($server,$username,$password,$db)
     {
-        global $cmi_sql;
+        global $global_sql;
 
-        if($cmi_sql)
-            return $cmi_sql;
+        if($global_sql)
+            return $global_sql;
 
-        $cmi_sql=new mysqli("localhost","root","123456","CMI_ERP");
+        $global_sql=new mysqli($server,$username,$password,$db);
 
-        if($cmi_sql->connect_error)
+        if($global_sql->connect_error)
         {
             echo "Connection mysql error: ".$sql->connect_error;
             return null;
         }
 
-        $cmi_sql->query("SET NAMES 'utf8'");
-        $cmi_sql->query("use CMI_ERP");
+        $global_sql->query("SET NAMES 'utf8'");
+        $global_sql->query("use ".$db);
 
-        return $cmi_sql;
+        return $global_sql;
+    }
+
+    function get_sql()
+    {
+        global $global_sql;
+
+        return $global_sql;
     }
 
     function get_field_list($table_name)
