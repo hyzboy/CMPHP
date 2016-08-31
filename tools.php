@@ -99,6 +99,16 @@
         echo get_icon_html($name);
     }
 
+    function get_badge_html($text)
+    {
+        return '<span class="badge">'.$text.'</span>';
+    }
+
+    function echo_badge($text)
+    {
+        echo get_badge_html($text);
+    }
+
     function echo_alert($style,$text)
     {
     	echo '<div class="alert alert-'.$style.'" role="alert">'.$text.'</div>';
