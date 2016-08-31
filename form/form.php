@@ -7,7 +7,7 @@
 		private $method;
 		private $action=null;
 
-		private $style_class="form-inline";
+		private $style_class="form-horizontal";
 
 		public function __construct()
 		{
@@ -53,6 +53,7 @@
 
 		public function start()
 		{
+            echo '<div class="container">';
 			echo '<form name="'.$this->name.'" method="'.$this->method.'" ';
 
 			if($this->action		!=null)echo 'action="'	.$this->action		.'" ';
@@ -67,11 +68,13 @@
 		{
 			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-primary"/>';
 			echo '</form>';
+			echo '</div>';
 		}
 
 		public function end()
 		{
 			echo '</form>';
+			echo '</div>';
 		}
 	};//class UIForm
 

@@ -1,60 +1,23 @@
 ﻿<?php
 
-	class UIEditBox
+	function CreateInputGroup()
 	{
-		private $type=null;
-		private $id=null;
-		private $size=null;
+    	$type  =func_get_arg(0);
+    	$id    =func_get_arg(1);
+    	$label =func_get_arg(2);
+    	$size  =func_get_arg(3);
 
-		public function __construct($t,$i,$s)
-		{
-			$this->type=$t;
-			$this->id=$i;
-			$this->size=$s;
-		}
+        echo '<div class="form-group">
+                <label class="control-label col-sm-2">'.$label.'</label>
+                <div class="col-sm-10">
+                    <input type="'.$type.'" class="form-control" id="'.$type.'" size="'.$size.'">';
 
-		public function echo()
-		{
-			echo '<input type="'.$this->type.'" class="form-control" name="'.$this->id.'" size="'.$this->size.'">';
-		}
-	};//class UIEditBox
+    	if(func_num_args()==5)
+    	{
+            $right_label=func_get_arg(4);
+            echo '<label class="control-label">'.$right_label.'</label>';
+        }
 
-	class UIInputGroup extends UIEditBox
-	{
-		private $addon_front=null;
-		private $addon_back=null;
-
-		public function __construct($t,$i,$s)
-		{
-			parent::__construct($t,$i,$s);
-		}
-
-		public function SetAddonFront($text)
-		{
-			$this->addon_front='<span class="input-group-addon">'.$text.'</span>';
-		}
-
-		public function SetAddonBack($text)
-		{
-			$this->addon_back='<span class="input-group-addon">'.$text.'</span>';
-		}
-
-		public function echo()
-		{
-			echo '<div class="input-group">';
-				echo $this->addon_front;
-					parent::echo();
-				echo  $this->addon_back;
-			echo '</div>';
-		}
-	};//class UIInputGroup
-
-	function CreateInputGroup($type,$id,$label,$size)
-	{
-		$but=new UIInputGroup($type,$id,$size);
-		$but->SetAddonFront($label);
-		$but->echo();
-
-		return $but;
+        echo '</div></div>';
 	}
 ?>

@@ -1,44 +1,35 @@
 ﻿<?php
 
-	class UISelect
-	{
-		private $name;
-		private $selected;
-		private $items;
-
-		public function __construct($n,$s,$i)
-		{
-			$this->name=$n;
-			$this->selected=$s;
-			$this->items=$i;
-		}
-
-		public function SetSelected($s)
-		{
-			$this->selected=$s;
-		}
-
-		public function out_html()
-		{
-			echo '<select name="'.$this->name.'">';
-
-                foreach($this->items as $value=>$text)
-                {
-                    if($this->selected==$value)
-                        echo '<option value="'.$value.'" selected="selected">'.$text.'</option>';
-                    else
-                        echo '<option value="'.$value.'">'.$text.'</option>';
-                }
-
-			echo '</select>';
-		}
-	}
-
-    function create_select($n,$s,$i)
+    function create_select()//$label,$name,$selected,$items)
     {
-        $ui=new UISelect($n,$s,$i);
+    	$label     =func_get_arg(0);
+    	$name      =func_get_arg(1);
+    	$selected  =func_get_arg(2);
+    	$items     =func_get_arg(3);
 
-        $ui->out_html();
-        return;
+        echo '<div class="form-group">
+                <label class="control-label col-sm-2">'.$label.'</label>
+                <div class="col-sm-10">';
+
+        echo '<select name="'.$name.'">';
+
+            foreach($items as $value=>$text)
+            {
+                if($selected==$value)
+                    echo '<option value="'.$value.'" selected="selected">'.$text.'</option>';
+                else
+                    echo '<option value="'.$value.'">'.$text.'</option>';
+            }
+
+        echo '</select>';
+
+    	if(func_num_args()==5)
+    	{
+            $right_label=func_get_arg(4);
+            echo '<label class="control-label">'.$right_label.'</label>';
+        }
+
+        echo '</div>';
+        echo '</div>';
     }
 ?>
