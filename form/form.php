@@ -53,7 +53,7 @@
 
 		public function start()
 		{
-            echo '<div class="container">';
+            echo '<div style="width: 50%">';
 			echo '<form name="'.$this->name.'" method="'.$this->method.'" ';
 
 			if($this->action		!=null)echo 'action="'	.$this->action		.'" ';

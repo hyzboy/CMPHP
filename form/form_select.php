@@ -29,7 +29,6 @@
             echo '<label class="control-label">'.$right_label.'</label>';
         }
 
-        echo '</div>';
-        echo '</div>';
+        echo '</div></div>';
     }
 ?>
