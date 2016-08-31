@@ -63,6 +63,9 @@
         private $menu=null;
 //        private $active=null;
 
+        private $right_icon=null;
+        private $right_icon_link=null;
+
         public function __construct($m)//,$a)
         {
             $this->menu=$m;
@@ -103,7 +106,6 @@
                 {
                     echo '<li class="dropdown">';
 
-
                     echo '<a class="dropdown-toggle" data-toggle="dropdown" ';
 
                     if(array_key_exists("link",$mi))
@@ -133,6 +135,12 @@
             }
         }
 
+        public function set_right_icon($icon,$link)
+        {
+            $this->right_icon=$icon;
+            $this->right_icon_link=$link;
+        }
+
         public function out_html()
         {
             echo '<nav class="navbar '.$this->style.'">
@@ -156,8 +164,19 @@
             if($this->menu!=null)
                 $this->echo_menu($this->menu);
 
-            echo '</ul>
-                </div>
+            echo '</ul>';
+
+            if($this->right_icon!=null)
+            {
+                echo '<ul class="nav navbar-nav navbar-right">
+                        <li><a href="'.$this->right_icon_link.'">';
+
+                echo_icon($this->right_icon);
+
+                echo '</a></li></ul>';
+            }
+
+            echo '</div>
               </div>
             </nav>';
         }
