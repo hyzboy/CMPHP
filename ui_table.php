@@ -7,7 +7,7 @@
         private $heading=null;
         private $heading_style="default";
         private $body=null;
-        private $fields=null;
+        protected $fields=null;
 
         public function set_heading($h)
         {
@@ -75,66 +75,79 @@
         }
     };//class UITable
 
-//     class UISQLTable extends UITable
-//     {
-//     	private $sql_result=null;
-//     	private $bool_text=array();
-//
-//     	public function __construct($label,$sql_table_name,$field_list,$where)
-//     	{
-//     		parent::__construct2($label,$field_list);
-//
-//     		if($field_list==null)
-//     		{
-//     			$field_list=get_field_list($sql_table_name);
-//
-//     			$this->set_cols($field_list);
-//
-//     			$this->sql_result=select_table($sql_table_name,null,$where,0,0);
-//     		}
-//     		else
-//     		{
-//     			$this->set_cols($field_list);
-//
-//     			$this->sql_result=select_table($sql_table_name,$field_list,$where,0,0);
-//     		}
-//     	}
-//
-//     	public function SetBoolText($field,$true_text,$false_text)
-//     	{
-//     		$this->bool_text[$field]=array($false_text,$true_text);
-//     	}
-//
-//     	public function get_sql_result()
-//     	{
-//     		return $this->sql_result;
-//     	}
-//
-// 	    public function echo()
-// 	    {
-// 	    	parent::echo();
-//
-// 	    	$this->start();
-//
-// 	    	for($r=0;$r<count($this->sql_result);$r++)
-// 	    	{
-// 	    		$row=$this->sql_result[$r];
-//
-// 	    		$this->start_row();
-// 	    		for($c=0;$c<count($row);$c++)
-// 	    		{
-// 	    			if(array_key_exists($this->columns[$c],$this->bool_text))
-// 	    			{
-// 	    				$this->out_col($this->bool_text[$this->columns[$c]][$row[$c]]);
-// 	    			}
-// 	    			else
-// 	    			{
-// 	    				$this->out_col($row[$c]);
-// 	    			}
-// 	    		}
-// 	    	}
-//
-// 	    	$this->end();
-// 	    }
-//     };//class UISQLTable
+    class UISQLTable extends UITable
+    {
+    	private $sql_result=null;
+    	private $bool_text=array();
+    	private $enum_text=array();
+
+    	public function __construct($sql_table_name,$field_list,$where)
+    	{
+    		if($field_list==null)
+    		{
+    			$field_list=get_field_list($sql_table_name);
+
+                parent::set_fields($field_list);
+
+
+    			$this->sql_result=select_table($sql_table_name,null,$where,0,0);
+    		}
+    		else
+    		{
+                parent::set_fields($field_list);
+
+    			$this->sql_result=select_table($sql_table_name,$field_list,$where,0,0);
+    		}
+    	}
+
+    	public function SetBoolText($field,$true_text,$false_text)
+    	{
+    		$this->bool_text[$field]=array($false_text,$true_text);
+    	}
+
+    	public function SetEnumText($field,$text_array)
+    	{
+            $this->enum_text[$field]=$text_array;
+    	}
+
+    	public function get_sql_result()
+    	{
+    		return $this->sql_result;
+    	}
+
+	    public function out_html()
+	    {
+	    	parent::start();
+
+	    	for($r=0;$r<count($this->sql_result);$r++)
+	    	{
+	    		$row=$this->sql_result[$r];
+
+	    		parent::start_row();
+	    		for($c=0;$c<count($row);$c++)
+	    		{
+                    parent::start_col();
+
+	    			if(array_key_exists($this->fields[$c],$this->bool_text))
+	    			{
+	    				echo $this->bool_text[$this->fields[$c]][$row[$c]];
+	    			}
+	    			else
+	    			if(array_key_exists($this->fields[$c],$this->enum_text))
+	    			{
+                        echo $this->enum_text[$this->fields[$c]][$row[$c]];
+	    			}
+	    			else
+	    			{
+	    				echo $row[$c];
+	    			}
+
+	    			parent::end_col();
+	    		}
+	    		parent::end_row();
+	    	}
+
+	    	parent::end();
+	    }
+    };//class UISQLTable
 ?>
