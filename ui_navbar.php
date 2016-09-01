@@ -96,9 +96,13 @@
 
             foreach($m as $mi)
             {
-                if(!is_array($mi)&&$mi=="-")
+                if(!is_array($mi))
                 {
-                    echo '<li role="separator" class="divider"></li>';
+                    if($mi=="-")
+                        echo '<li role="separator" class="divider"></li>';
+                    else
+                        echo '<li class="dropdown-header">'.$mi.'</li>';
+
                     continue;
                 }
 
@@ -119,19 +123,16 @@
 
                     echo '</ul>
                         </li>';
-                }
-                else
-                {
-//                         if($this->active==$mi->GetLink())
-//                             echo '<li class="active">';
-//                         else
-                        echo '<li>';
 
-                        if(array_key_exists("link",$mi))
-                            echo '<a href="'.$mi["link"].'">'.$mi["text"].'</a></li>';
-                        else
-                            echo '<a>'.$mi["text"].'</a></li>';
+                    continue;
                 }
+
+                echo '<li>';
+
+                if(array_key_exists("link",$mi))
+                    echo '<a href="'.$mi["link"].'">'.$mi["text"].'</a></li>';
+                else
+                    echo '<a>'.$mi["text"].'</a></li>';
             }
         }
 
