@@ -15,7 +15,7 @@
     	if(func_num_args()==5)
     	{
             $right_label=func_get_arg(4);
-            echo '<label class="control-label">'.$right_label.'</label>';
+            echo '<span class="help-block">'.$right_label.'</span>';
         }
 
         echo '</div></div>';
