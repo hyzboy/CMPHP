@@ -8,6 +8,7 @@
         private $heading_style="default";
         private $body=null;
         protected $fields=null;
+        private $table_style="striped";
 
         public function set_heading($h)
         {
@@ -29,6 +30,11 @@
             $this->fields=$f;
         }
 
+        public function set_table_style($ts)
+        {
+            $this->table_style=$ts;
+        }
+
         public function start()
         {
             echo '<div class="panel panel-'.$this->heading_style.'">';
@@ -39,7 +45,10 @@
             if($this->body!=null)
                 echo '<div class="panel-body"><p>'.$this->body.'</p></div>';
 
-            echo '<table class="table">';
+            if($this->table_style)
+                echo '<table class="table table-'.$this->table_style.'">';
+            else
+                echo '<table class="table">';
 
             if($this->fields!=null)
             {
@@ -81,8 +90,15 @@
     	private $bool_text=array();
     	private $enum_text=array();
 
-    	public function __construct($sql_table_name,$field_list,$where)
+    	public function __construct()//$sql_table_name,$field_list,$where,$start,$count)
     	{
+            $sql_table_name=func_get_arg(0);
+
+            if(func_num_args()>1)$field_list=func_get_arg(1);else $field_list=null;
+            if(func_num_args()>2)$where     =func_get_arg(2);else $where=null;
+            if(func_num_args()>3)$start     =func_get_arg(3);else $start=null;
+            if(func_num_args()>4)$count     =func_get_arg(4);else $count=null;
+
     		if($field_list==null)
     		{
     			$field_list=get_field_list($sql_table_name);
@@ -90,13 +106,13 @@
                 parent::set_fields($field_list);
 
 
-    			$this->sql_result=select_table($sql_table_name,null,$where,0,0);
+    			$this->sql_result=select_table($sql_table_name,null,$where,$start,$count);
     		}
     		else
     		{
                 parent::set_fields($field_list);
 
-    			$this->sql_result=select_table($sql_table_name,$field_list,$where,0,0);
+    			$this->sql_result=select_table($sql_table_name,$field_list,$where,$start,$count);
     		}
     	}
 
