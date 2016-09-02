@@ -46,9 +46,9 @@
                 echo '<div class="panel-body"><p>'.$this->body.'</p></div>';
 
             if($this->table_style)
-                echo '<table class="table table-'.$this->table_style.'">';
+                echo '<table class="table table-responsive table-'.$this->table_style.'">';
             else
-                echo '<table class="table">';
+                echo '<table class="table table-responsive">';
 
             if($this->fields!=null)
             {

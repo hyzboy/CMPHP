@@ -1,6 +1,6 @@
 ﻿<?php
 
-    static $global_sql=null;
+    $global_sql=null;
 
     function get_sql()
     {
@@ -135,8 +135,14 @@
     		++$count;
     	}
 
-//    	echo 'SQLString: '.$sql_string;
-    	return $sql->query($sql_string);
+    	$sql_result=$sql->query($sql_string);
+
+    	if($sql_result)
+    	return $sql_result;
+
+        echo 'SQL Insert error,SQLString: '.$sql_string.'<br/>';
+        echo 'SQL Error: '.$sql->error;
+        return null;
     }
 
     /**
@@ -159,7 +165,10 @@
             $resultmode=MYSQLI_STORE_RESULT;
 
         foreach($field_array as $field)
-            $data_array[$field]=$_POST[$field];
+        {
+            if(isset($_POST[$field])&&strlen($_POST[$field])>0)
+                $data_array[$field]=$_POST[$field];
+        }
 
         return sql_insert($table_name,$data_array,$resultmode);
     }
