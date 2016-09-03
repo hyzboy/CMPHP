@@ -61,7 +61,8 @@
 
 			$_SESSION["final_submit"]=time();
 
-			$this->add_hidden_value('form_time',$_SESSION["final_submit"]);
+			if($this->method=="post")        //get下不传递此参数
+                $this->add_hidden_value('form_time',$_SESSION["final_submit"]);
 		}
 
 		public function submit_end($submit_name)
