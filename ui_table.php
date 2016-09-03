@@ -106,13 +106,13 @@
 
                 parent::set_fields($field_list);
 
-    			$this->sql_result=select_table($sql,$sql_table_name,null,$where,$start,$count);
+    			$this->sql_result=select_table_to_array($sql,$sql_table_name,null,$where,$start,$count);
     		}
     		else
     		{
                 parent::set_fields($field_list);
 
-    			$this->sql_result=select_table($sql,$sql_table_name,$field_list,$where,$start,$count);
+    			$this->sql_result=select_table_to_array($sql,$sql_table_name,$field_list,$where,$start,$count);
     		}
     	}
 

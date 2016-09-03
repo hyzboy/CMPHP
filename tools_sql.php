@@ -100,8 +100,24 @@
     	return $field_list;
     }
 
-    function select_table($sql,$table_name,$field_list,$where,$start,$count)
+    function select_table()//$sql,$table_name,$field_list,$where,$start,$count)
     {
+        $sql        =func_get_arg(0);
+        $table_name =func_get_arg(1);
+        $field_list =func_get_arg(2);
+
+        if(func_num_args()>3)$where=func_get_arg(3);else $where=null;
+        if(func_num_args()>4)
+        {
+            $start=func_get_arg(4);
+            $count=func_get_arg(5);
+        }
+        else
+        {
+            $start=0;
+            $count=0;
+        }
+
         if($sql==null)return;
 
         $sql_string="SELECT";
@@ -127,6 +143,36 @@
         if($count!=0)$sql_string=$sql_string." LIMIT ".$start.",".$count;
 
         $sql_result=$sql->query($sql_string);
+
+    	if($sql_result)
+            return $sql_result;
+
+        echo 'SQL Query error,SQLString: '.$sql_string.'<br/>';
+        echo 'SQL Error: '.$sql->error;
+        return null;
+    }
+
+    function select_table_to_array()//$sql,$table_name,$field_list,$where,$start,$count)
+    {
+        $sql        =func_get_arg(0);
+        $table_name =func_get_arg(1);
+        $field_list =func_get_arg(2);
+
+        if(func_num_args()>3)$where=func_get_arg(3);
+        if(func_num_args()>4)
+        {
+            $start=func_get_arg(4);
+            $count=func_get_arg(5);
+        }
+        else
+        {
+            $start=0;
+            $count=0;
+        }
+
+        $sql_result=select_table($sql,$table_name,$field_list,$where,$start,$count);
+
+        if(!$sql_result)return(null);
 
         $result=array();
         $index=0;
@@ -225,6 +271,6 @@
                 $data_array[$field]=$_POST[$field];
         }
 
-        return sql_insert($table_name,$data_array,$resultmode);
+        return sql_insert($sql,$table_name,$data_array,$resultmode);
     }
 ?>
