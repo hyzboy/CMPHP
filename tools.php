@@ -2,8 +2,7 @@
 
     function include_jquery()
     {
-        echo '<script src="3rdpty/jquery-3.1.0.js"></script>
-             ';
+        echo '<script src="3rdpty/jquery-3.1.0.js"></script>';
     }
 
     function include_font_awesome()
@@ -13,10 +12,11 @@
 
     function include_bootstrap()
     {
-        echo   '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap.css">
-                <link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">
-                <script src="3rdpty/bootstrap/js/bootstrap.js"></script>
-               ';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap.css">';
+        //echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">';
+        echo '<link rel="stylesheet" href="3rdpty/sb-admin-2/css/sb-admin-2.css">';
+        echo '<script src="3rdpty/sb-admin-2/js/sb-admin-2.js"></script>';
+        echo '<script src="3rdpty/bootstrap/js/bootstrap.js"></script>';
     };
 
     function include_jsgird()
