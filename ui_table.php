@@ -90,29 +90,29 @@
     	private $bool_text=array();
     	private $enum_text=array();
 
-    	public function __construct()//$sql_table_name,$field_list,$where,$start,$count)
+    	public function __construct()//$sql,$sql_table_name,$field_list,$where,$start,$count)
     	{
-            $sql_table_name=func_get_arg(0);
+            $sql=func_get_arg(0);
+            $sql_table_name=func_get_arg(1);
 
-            if(func_num_args()>1)$field_list=func_get_arg(1);else $field_list=null;
-            if(func_num_args()>2)$where     =func_get_arg(2);else $where=null;
-            if(func_num_args()>3)$start     =func_get_arg(3);else $start=null;
-            if(func_num_args()>4)$count     =func_get_arg(4);else $count=null;
+            if(func_num_args()>2)$field_list=func_get_arg(2);else $field_list=null;
+            if(func_num_args()>3)$where     =func_get_arg(3);else $where=null;
+            if(func_num_args()>4)$start     =func_get_arg(4);else $start=null;
+            if(func_num_args()>5)$count     =func_get_arg(5);else $count=null;
 
     		if($field_list==null)
     		{
-    			$field_list=get_field_list($sql_table_name);
+    			$field_list=get_field_list($sql,$sql_table_name);
 
                 parent::set_fields($field_list);
 
-
-    			$this->sql_result=select_table($sql_table_name,null,$where,$start,$count);
+    			$this->sql_result=select_table($sql,$sql_table_name,null,$where,$start,$count);
     		}
     		else
     		{
                 parent::set_fields($field_list);
 
-    			$this->sql_result=select_table($sql_table_name,$field_list,$where,$start,$count);
+    			$this->sql_result=select_table($sql,$sql_table_name,$field_list,$where,$start,$count);
     		}
     	}
 

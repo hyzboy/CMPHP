@@ -180,10 +180,8 @@
 		return file_get_contents('http://download.finance.yahoo.com/d/quotes.csv?s='.$source.$target.'=X&f=l1&e=.csv');
 	}
 
-    function get_service_hall_cash($currency)
+    function get_service_hall_cash($sql,$currency)
     {
-        $sql=get_sql();
-
         if(!$sql)return 0;
 
         $sql_string='select Number from ServiceHall_Cash where SubCode="'.$_SESSION['service_hall'].'_'.$currency.'"';
@@ -199,21 +197,16 @@
         return $row[0];
     }
 
-
-    function save_cash_to_service_hall($currency,$number)
+    function save_cash_to_service_hall($sql,$currency,$number)
     {
-        $sql=get_sql();
+        if(!$sql)return(null);
 
-        if(!$sql)return;
-
-        $sql_result=$sql->query('INSERT INTO ServiceHall_Cash(SubCode,Code,Currency,Number) VALUES("'.$_SESSION['service_hall'].'_'.$currency.'","'.$_SESSION['service_hall'].'","'.$currency.'",'.$number.') ON DUPLICATE KEY UPDATE Number=Number+'.$number);
-
-        return;
+        return $sql->query('INSERT INTO ServiceHall_Cash(SubCode,Code,Currency,Number) VALUES("'.$_SESSION['service_hall'].'_'.$currency.'","'.$_SESSION['service_hall'].'","'.$currency.'",'.$number.') ON DUPLICATE KEY UPDATE Number=Number+'.$number);
     }
 
-    function show_cash_from_service_hall($label)
+    function show_cash_from_service_hall($sql,$label)
     {
-        $table=new UISQLTable($label,"ServiceHall_Cash",array("Currency","Number"),'Code="'.$_SESSION['service_hall'].'"');
+        $table=new UISQLTable($sql,$label,"ServiceHall_Cash",array("Currency","Number"),'Code="'.$_SESSION['service_hall'].'"');
 
         $table->echo();
     }

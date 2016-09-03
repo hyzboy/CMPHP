@@ -23,10 +23,69 @@
         return $global_sql;
     }
 
-    function get_field_list($table_name)
-    {
-    	$sql=get_sql();
+//     class SQLSelect
+//     {
+//         private $field_list=null;
+//
+//         private $where=null;
+//         private $limit_start=0;
+//         private $limit_count=0;
+//
+//         public
+//     };//class SQLSelect
+//
+//     class SQLTable
+//     {
+//         private $sql=null;
+//         private $table_name=null;
+//         private $insert_id=0;
+//
+//         private $field_list=null;
+//
+//         public function __construct($s,$tn)
+//         {
+//             $this->sql=$s;
+//             $this->table_name=$tn;
+//         }
+//
+//         public function get_field_list()
+//         {
+//             if($field_list)
+//                 return $field_list;
+//
+//             $sql_result=$this->sql->query("DESC ".$this->table_name);
+//
+//             if(!$sql_result)
+//                 return null;
+//
+//             $this->field_list=array();
+//             while ($row = $sql_result->fetch_object())
+//                 $this->field_list[] = $row->Field;
+//
+//             return $this->field_list;
+//         }
+//     };//class SQLTable
+//
+//     class SQLConnect
+//     {
+//         private $sql=null;
+//
+//         public function __construct()
+//         {
+//             $sql=get_sql();
+//         }
+//
+//         public function OpenTable($table_name)
+//         {
+//             if(!$sql)
+//                 return(null);
+//
+//             return(new SQLTable($sql,$table));
+//         }
+//     };//class SQLConnect
 
+    function get_field_list($sql,$table_name)
+    {
     	if($sql==null)return null;
 
     	$sql_result=$sql->query("DESC ".$table_name);
@@ -41,10 +100,8 @@
     	return $field_list;
     }
 
-    function select_table($table_name,$field_list,$where,$start,$count)
+    function select_table($sql,$table_name,$field_list,$where,$start,$count)
     {
-        $sql=get_sql();
-
         if($sql==null)return;
 
         $sql_string="SELECT";
@@ -85,10 +142,8 @@
         return $result;
     }
 
-    function select_field($table_name,$field,$where)
+    function select_field($sql,$table_name,$field,$where)
     {
-        $sql=get_sql();
-
         if($sql==null)return;
 
         $sql_string="SELECT ".$field." FROM ".$table_name." WHERE ".$where;
@@ -107,17 +162,17 @@
     /**
     * 向一个表中插入数据，使用array的kv模式表示字段和数据
     */
-    function sql_insert()//$table_name,$data_array)
+    function sql_insert()//$sql,$table_name,$data_array)
     {
-    	$sql=get_sql();
+        $sql=func_get_arg(0);
 
     	if($sql==null)return null;
 
-    	$table_name=func_get_arg(0);
-    	$data_array=func_get_arg(1);
+    	$table_name=func_get_arg(1);
+    	$data_array=func_get_arg(2);
 
-    	if(func_num_args()==3)
-            $resultmode=func_get_arg(2);
+    	if(func_num_args()==4)
+            $resultmode=func_get_arg(3);
         else
             $resultmode=MYSQLI_STORE_RESULT;
 
@@ -148,19 +203,19 @@
     /**
     * 向一个表中插入数据，字段数据来自于post
     */
-    function sql_insert_by_post()//$table_name,$field_array [,$resultmode=MYSQLI_STORE_RESULT])
+    function sql_insert_by_post()//$sql,$table_name,$field_array [,$resultmode=MYSQLI_STORE_RESULT])
     {
-        $sql=get_sql();
+        $sql=func_get_arg(0);
 
         if($sql==null)return null;
 
         $data_array=array();
 
-    	$table_name=func_get_arg(0);
-    	$field_array=func_get_arg(1);
+    	$table_name=func_get_arg(1);
+    	$field_array=func_get_arg(2);
 
-    	if(func_num_args()==3)
-            $resultmode=func_get_arg(2);
+    	if(func_num_args()==4)
+            $resultmode=func_get_arg(3);
         else
             $resultmode=MYSQLI_STORE_RESULT;
 
