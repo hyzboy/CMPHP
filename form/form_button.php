@@ -24,6 +24,14 @@
 				$this->style='class="btn btn-'.$bs.'"';
 		}
 
+		public function SetCircleStyle($bs)
+		{
+			if($bs==null)
+				$this->style='class="btn btn-circle"';
+			else
+				$this->style='class="btn btn-'.$bs.' btn-circle"';
+		}
+
 		public function SetOnClick($js)
 		{
 			$this->onclick='onclick="'.$js.'"';
@@ -39,7 +47,7 @@
 			$this->onclick='onclick="javascript:location.href=\''.$link.'\'"';
 		}
 
-		public function echo()
+		public function out_html()
 		{
 			echo '<button '.$this->style.' '.$this->onclick.'>'.$this->text.'</button>';
 		}
