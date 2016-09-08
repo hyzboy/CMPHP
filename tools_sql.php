@@ -25,7 +25,7 @@
 
 //     class SQLSelect
 //     {
-//         private $field_list=null;
+//         private $field_array=null;
 //
 //         private $where=null;
 //         private $limit_start=0;
@@ -40,7 +40,7 @@
 //         private $table_name=null;
 //         private $insert_id=0;
 //
-//         private $field_list=null;
+//         private $field_array=null;
 //
 //         public function __construct($s,$tn)
 //         {
@@ -50,8 +50,8 @@
 //
 //         public function get_field_list()
 //         {
-//             if($field_list)
-//                 return $field_list;
+//             if($field_array)
+//                 return $field_array;
 //
 //             $sql_result=$this->sql->query("DESC ".$this->table_name);
 //
@@ -93,18 +93,18 @@
     	if(!$sql_result)
     		return null;
 
-    	$field_list=array();
+    	$field_array=array();
     	while ($row = $sql_result->fetch_object())
-    		$field_list[] = $row->Field;
+    		$field_array[] = $row->Field;
 
-    	return $field_list;
+    	return $field_array;
     }
 
-    function select_table()//$sql,$table_name,$field_list,$where,$start,$count)
+    function select_table()//$sql,$table_name,$field_array,$where,$start,$count)
     {
         $sql        =func_get_arg(0);
         $table_name =func_get_arg(1);
-        $field_list =func_get_arg(2);
+        $field_array =func_get_arg(2);
 
         if(func_num_args()>3)$where=func_get_arg(3);else $where=null;
         if(func_num_args()>4)
@@ -122,17 +122,17 @@
 
         $sql_string="SELECT";
 
-        if($field_list==null)
+        if($field_array==null)
         {
         	$sql_string=$sql_string." * FROM ".$table_name;
         }
         else
         {
-	        for($i=0;$i<count($field_list);$i++)
+	        for($i=0;$i<count($field_array);$i++)
 	            if($i==0)
-	                $sql_string=$sql_string.' '.$field_list[$i];
+	                $sql_string=$sql_string.' '.$field_array[$i];
 	            else
-	                $sql_string=$sql_string.','.$field_list[$i];
+	                $sql_string=$sql_string.','.$field_array[$i];
 
         	$sql_string=$sql_string." FROM ".$table_name;
         }
@@ -152,11 +152,11 @@
         return null;
     }
 
-    function select_table_to_array()//$sql,$table_name,$field_list,$where,$start,$count)
+    function select_table_to_array()//$sql,$table_name,$field_array,$where,$start,$count)
     {
         $sql        =func_get_arg(0);
         $table_name =func_get_arg(1);
-        $field_list =func_get_arg(2);
+        $field_array =func_get_arg(2);
 
         if(func_num_args()>3)$where=func_get_arg(3);
         if(func_num_args()>4)
@@ -170,7 +170,7 @@
             $count=0;
         }
 
-        $sql_result=select_table($sql,$table_name,$field_list,$where,$start,$count);
+        $sql_result=select_table($sql,$table_name,$field_array,$where,$start,$count);
 
         if(!$sql_result)return(null);
 
@@ -272,5 +272,55 @@
         }
 
         return sql_insert($sql,$table_name,$data_array,$resultmode);
+    }
+
+    function sql_update($sql,$table_name,$where,$field_array)
+    {
+        if(!$sql)return null;
+        if(!$where||strlen($where)<3)return null;
+        if(!$field_array||!is_array($field_array)||count($field_array)<=0)return null;
+
+        $sql_string='UPDATE '.$table_name.' SET ';
+
+        $first_field=true;
+
+        foreach($field_array as $field=>$value)
+        {
+            if(!$first_field)
+                $sql_string.=',';
+            else
+                $first_field=false;
+
+            $sql_string.=$field.'="'.$value.'"';
+        }
+
+        $sql_string.=" WHERE ".$where;
+
+//        echo 'SQL Update SQLString: '.$sql_string.'<br/>';
+    	$sql_result=$sql->query($sql_string);
+
+    	if($sql_result)
+    	return $sql_result;
+
+        echo 'SQL Update error,SQLString: '.$sql_string.'<br/>';
+        echo 'SQL Error: '.$sql->error;
+        return null;
+    }
+
+    function sql_update_by_post($sql,$table_name,$where,$field_array)
+    {
+        if(!$sql)return null;
+        if(!$where||strlen($where)<3)return null;
+        if(!$field_array||!is_array($field_array)||count($field_array)<=0)return null;
+
+        $data_array=array();
+
+        foreach($field_array as $field)
+        {
+            if(isset($_POST[$field])&&strlen($_POST[$field])>0)
+                $data_array[$field]=$_POST[$field];
+        }
+
+        return sql_update($sql,$table_name,$where,$data_array);
     }
 ?>
