@@ -16,3 +16,4 @@
 // 	require_once 'ui_sidebar.php';
 	require_once "ui_navbar.php";
 	require_once 'ui_table.php';
+    require_once 'ui_pagination.php';
