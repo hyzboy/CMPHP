@@ -9,6 +9,11 @@
 
 		private $style_class="form-horizontal";
 
+		private $width=0;
+
+		private $panel_style=null;
+		private $panel_title=null;
+
 		public function __construct()
 		{
 			$a = func_get_args();
@@ -36,9 +41,20 @@
 			return $name;
 		}
 
+		public function set_width($w)
+		{
+            $this->width=$w;
+		}
+
 		public function set_class($s)
 		{
-			$this->$style_class=$s;
+			$this->style_class=$s;
+		}
+
+		public function set_panel_title($pt,$ps)
+		{
+            $this->panel_title=$pt;
+            $this->panel_style=$ps;
 		}
 
 		public function add_hidden_value($input_name,$value)
@@ -53,8 +69,19 @@
 
 		public function start()
 		{
-            echo '<div style="width: 50%">';
-			echo '<form name="'.$this->name.'" method="'.$this->method.'" ';
+            if($this->width>0)
+                echo '<div class="col-md-'.$this->width.' col-md-offset-'.((12-$this->width)/2).'">';
+
+            if($this->panel_title)
+            {
+                echo '<div class="'.$this->panel_style.'">';
+                echo '<div class="panel-heading">
+                        <h3 class="panel-title">'.$this->panel_title.'</h3>
+                    </div>
+                    <div class="panel-body">';
+            }
+
+			echo '<form name="'.$this->name.'" method="'.$this->method.'" style="margin-bottom: 0px;"';
 
 			if($this->action		!=null)echo 'action="'	.$this->action		.'" ';
 			if($this->style_class	!=null)echo 'class="'	.$this->style_class	.'">';
@@ -67,14 +94,20 @@
 
 		public function submit_end($submit_name)
 		{
-			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-primary"/>';
+			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-primary" style="margin: 4px;"/>';
 			echo '</form>';
-			echo '</div>';
+			if($this->panel_title)
+                echo '</div></div>';
+
+            if($this->width>0)
+                echo '</div>';
 		}
 
 		public function end()
 		{
 			echo '</form>';
+			if($this->panel_title)
+                echo '</div></div>';
 			echo '</div>';
 		}
 	};//class UIForm
