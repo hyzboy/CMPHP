@@ -7,7 +7,7 @@
     	$selected  =func_get_arg(2);
     	$items     =func_get_arg(3);
 
-    	echo '<div class="form-group">
+    	echo '<div class="form-group" style="margin-left: 0px; margin-right: 0px;">
                 <label class="control-label col-sm-2">'.$label.'</label>
                 <div class="col-sm-10">';
 
