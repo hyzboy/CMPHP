@@ -127,12 +127,10 @@
                     continue;
                 }
 
-                echo '<li>';
-
                 if(array_key_exists("link",$mi))
-                    echo '<a href="'.$mi["link"].'">'.$mi["text"].'</a></li>';
+                    echo '<li><a href="'.$mi["link"].'">'.$mi["text"].'</a></li>';
                 else
-                    echo '<a>'.$mi["text"].'</a></li>';
+                    echo '<li class="disabled"><a>'.$mi["text"].'</a></li>';
             }
         }
 
