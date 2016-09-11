@@ -46,7 +46,7 @@
 
     function echo_page_header($header,$subtext)
     {
-        echo '<div class="page-header" style="margin-bottom: 10px; padding-bottom: 0px; margin-top: 0px;"><h1>'.$header.'<small> '.$subtext.'</small></h1></div>';
+        echo '<div class="page-header" style="margin-bottom: 10px; padding-bottom: 0px; margin-top: 0px;"><h1 style="margin-top: 10px;">'.$header.'<small> '.$subtext.'</small></h1></div>';
     }
 
     function echo_html_end()

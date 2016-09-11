@@ -83,7 +83,9 @@
     	$edit->type  =func_get_arg(0);
     	$edit->name  =func_get_arg(1);
     	$edit->label =func_get_arg(2);
-    	$edit->size  =func_get_arg(3);
+
+    	if(func_num_args()>3)
+            $edit->size  =func_get_arg(3);
 
     	if(func_num_args()>4)
             $edit->place_holder=func_get_arg(4);
