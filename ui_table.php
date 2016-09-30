@@ -37,13 +37,13 @@
 
         public function start()
         {
-            echo '<div class="panel panel-'.$this->heading_style.'">';
+            echo '<div class="panel panel-'.$this->heading_style.'" style="margin-bottom: 0px;">';
 
             if($this->heading!=null)
                 echo '<div class="panel-heading">'.$this->heading.'</div>';
 
             if($this->body!=null)
-                echo '<div class="panel-body"><p>'.$this->body.'</p></div>';
+                echo '<div class="panel-body"><p style="margin-bottom: 0px;">'.$this->body.'</p></div>';
 
             if($this->table_style)
                 echo '<table class="table table-responsive table-'.$this->table_style.'">';
