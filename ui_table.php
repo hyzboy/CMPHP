@@ -86,7 +86,9 @@
 
     class UISQLTable extends UITable
     {
+        private $sql_fields=null;
     	private $sql_result=null;
+
     	private $bool_text=array();
     	private $enum_text=array();
 
@@ -106,14 +108,28 @@
 
                 parent::set_fields($field_list);
 
+                $this->sql_fields=$field_list;
+
     			$this->sql_result=select_table_to_array($sql,$sql_table_name,null,$where,$start,$count);
     		}
     		else
     		{
                 parent::set_fields($field_list);
 
+                $this->sql_fields=$field_list;
+
     			$this->sql_result=select_table_to_array($sql,$sql_table_name,$field_list,$where,$start,$count);
     		}
+    	}
+
+    	public function SetTitleNameMap($tmm)
+    	{
+            $this->fields=array();
+
+            foreach($tmm as $f)
+            {
+                array_push($this->fields,$f);
+            }
     	}
 
     	public function SetBoolText($field,$true_text,$false_text)
@@ -144,14 +160,14 @@
 	    		{
                     parent::start_col();
 
-	    			if(array_key_exists($this->fields[$c],$this->bool_text))
+	    			if(array_key_exists($this->sql_fields[$c],$this->bool_text))
 	    			{
-	    				echo $this->bool_text[$this->fields[$c]][$row[$c]];
+	    				echo $this->bool_text[$this->sql_fields[$c]][$row[$c]];
 	    			}
 	    			else
-	    			if(array_key_exists($this->fields[$c],$this->enum_text))
+	    			if(array_key_exists($this->sql_fields[$c],$this->enum_text))
 	    			{
-                        echo $this->enum_text[$this->fields[$c]][$row[$c]];
+                        echo $this->enum_text[$this->sql_fields[$c]][$row[$c]];
 	    			}
 	    			else
 	    			{
