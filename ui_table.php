@@ -7,7 +7,7 @@
         private $heading=null;
         private $heading_style="default";
         private $body=null;
-        protected $fields=null;
+        protected $title_col=null;
         private $table_style="striped";
 
         public function set_heading($h)
@@ -25,9 +25,9 @@
             $this->body=$bt;
         }
 
-        public function set_fields($f)
+        public function set_title_col($f)
         {
-            $this->fields=$f;
+            $this->title_col=$f;
         }
 
         public function set_table_style($ts)
@@ -50,10 +50,10 @@
             else
                 echo '<table class="table table-responsive">';
 
-            if($this->fields!=null)
+            if($this->title_col!=null)
             {
                 echo '<tr>';
-                    foreach($this->fields as $field)
+                    foreach($this->title_col as $field)
                         echo '<th>'.$field.'</th>';
                 echo '</tr>';
             }
@@ -106,7 +106,7 @@
     		{
     			$field_list=get_field_list($sql,$sql_table_name);
 
-                parent::set_fields($field_list);
+                parent::set_title_col($field_list);
 
                 $this->sql_fields=$field_list;
 
@@ -114,22 +114,12 @@
     		}
     		else
     		{
-                parent::set_fields($field_list);
+                parent::set_title_col($field_list);
 
                 $this->sql_fields=$field_list;
 
     			$this->sql_result=select_table_to_array($sql,$sql_table_name,$field_list,$where,$start,$count);
     		}
-    	}
-
-    	public function SetTitleNameMap($tmm)
-    	{
-            $this->fields=array();
-
-            foreach($tmm as $f)
-            {
-                array_push($this->fields,$f);
-            }
     	}
 
     	public function SetBoolText($field,$true_text,$false_text)
