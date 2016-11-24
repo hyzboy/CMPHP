@@ -17,14 +17,6 @@
         echo '<link rel="stylesheet" href="3rdpty/sb-admin-2/css/sb-admin-2.css">';
         echo '<script src="3rdpty/sb-admin-2/js/sb-admin-2.js"></script>';
         echo '<script src="3rdpty/bootstrap/js/bootstrap.js"></script>';
-    };
-
-    function include_jsgird()
-    {
-        echo '<link type="text/css" rel="stylesheet" href="3rdpty/jsgrid/jsgrid.css" />
-              <link type="text/css" rel="stylesheet" href="3rdpty/jsgrid/jsgrid-theme.css" />
-              <script type="text/javascript" src="3rdpty/jsgrid/jsgrid.js"></script>
-             ';
     }
 
     function echo_html_header($title)
@@ -39,7 +31,6 @@
         include_jquery();
         include_font_awesome();
         include_bootstrap();
-        //include_jsgird();
 
         echo    '</head><body>';
     }
