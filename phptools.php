@@ -10,6 +10,7 @@
 	require_once 'form/form_radio.php';
 	require_once 'form/form_editbox.php';
 	require_once 'form/form_button.php';
+	require_once 'form/form_check.php';
 	require_once 'form/form.php';
 
 // 	require_once "ui_tab.php";
