@@ -328,7 +328,10 @@
     {
         if(!$sql)return null;
 
-        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name." where ".$where);
+        if($where)
+            $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name." where ".$where);
+        else
+        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
 
         $result=$sql_result->fetch_row();
 
