@@ -323,4 +323,58 @@
 
         return sql_update($sql,$table_name,$where,$data_array);
     }
+
+    function sql_get_field_term($sql,$table_name,$field,$term)
+    {
+        if(!$sql)return null;
+
+        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
+
+        $result=$sql_result->fetch_row();
+
+        $sql_result->close();
+
+        return $result[0];
+    }
+
+    function sql_get_field_min($sql,$table_name,$field)
+    {
+        return sql_get_field_term($sql,$table_name,$field,"MIN");
+    }
+
+    function sql_get_field_max($sql,$table_name,$field)
+    {
+        return sql_get_field_term($sql,$table_name,$field,"MAX");
+    }
+
+    function sql_get_field_count($sql,$table_name,$field)
+    {
+        return sql_get_field_term($sql,$table_name,$field,"COUNT");
+    }
+
+    function sql_get_field_sum($sql,$table_name,$field)
+    {
+        return sql_get_field_term($sql,$table_name,$field,"SUM");
+    }
+
+    function sql_get_field_avg($sql,$table_name,$field)
+    {
+        return sql_get_field_term($sql,$table_name,$field,"AVG");
+    }
+
+    function sql_get_field_distinct($sql,$table_name,$field)
+    {
+        if(!$sql)return null;
+
+        $sql_result=$sql->query("select DISTINCT(".$field.") from ".$table_name);
+
+        $result=array();
+
+        while($obj=$sql_result->fetch_row())
+            array_push($result,$obj[0]);
+
+        $sql_result->close();
+
+        return $result;
+    }
 ?>
