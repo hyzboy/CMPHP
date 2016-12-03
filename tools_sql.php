@@ -324,11 +324,11 @@
         return sql_update($sql,$table_name,$where,$data_array);
     }
 
-    function sql_get_field_term($sql,$table_name,$field,$term)
+    function sql_get_field_term($sql,$table_name,$field,$term,$where)
     {
         if(!$sql)return null;
 
-        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
+        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name." where ".$where);
 
         $result=$sql_result->fetch_row();
 
@@ -337,29 +337,29 @@
         return $result[0];
     }
 
-    function sql_get_field_min($sql,$table_name,$field)
+    function sql_get_field_min($sql,$table_name,$field,$where)
     {
-        return sql_get_field_term($sql,$table_name,$field,"MIN");
+        return sql_get_field_term($sql,$table_name,$field,"MIN",$where);
     }
 
-    function sql_get_field_max($sql,$table_name,$field)
+    function sql_get_field_max($sql,$table_name,$field,$where)
     {
-        return sql_get_field_term($sql,$table_name,$field,"MAX");
+        return sql_get_field_term($sql,$table_name,$field,"MAX",$where);
     }
 
-    function sql_get_field_count($sql,$table_name,$field)
+    function sql_get_field_count($sql,$table_name,$field,$where)
     {
-        return sql_get_field_term($sql,$table_name,$field,"COUNT");
+        return sql_get_field_term($sql,$table_name,$field,"COUNT",$where);
     }
 
-    function sql_get_field_sum($sql,$table_name,$field)
+    function sql_get_field_sum($sql,$table_name,$field,$where)
     {
-        return sql_get_field_term($sql,$table_name,$field,"SUM");
+        return sql_get_field_term($sql,$table_name,$field,"SUM",$where);
     }
 
-    function sql_get_field_avg($sql,$table_name,$field)
+    function sql_get_field_avg($sql,$table_name,$field,$where)
     {
-        return sql_get_field_term($sql,$table_name,$field,"AVG");
+        return sql_get_field_term($sql,$table_name,$field,"AVG",$where);
     }
 
     function sql_get_field_distinct($sql,$table_name,$field)
