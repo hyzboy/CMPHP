@@ -369,7 +369,7 @@
     {
         if(!$sql)return null;
 
-        $sql_result=$sql->query("select DISTINCT(".$field.") from ".$table_name);
+        $sql_result=$sql->query("select DISTINCT(".$field.") from ".$table_name.' ORDER BY '.$field);
 
         $result=array();
 
