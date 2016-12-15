@@ -19,6 +19,11 @@
         echo '<script src="3rdpty/bootstrap/js/bootstrap.js"></script>';
     }
 
+    function include_echarts()
+    {
+        echo '<script src="3rdpty/echarts.js"></script>';
+    }
+
     function echo_html_header($title)
     {
         echo '<html>
@@ -31,6 +36,7 @@
         include_jquery();
         include_font_awesome();
         include_bootstrap();
+        include_echarts();
 
         echo    '</head><body>';
     }
