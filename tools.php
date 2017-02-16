@@ -86,6 +86,14 @@
     	echo '<a href="'.$link.'" data-toggle="tooltip" data-placement="top" title="'.$hint.'">'.'<span class="glyphicon glyphicon-'.$glyph.'"></span>'.$text.'</a>';
     }
 
+    function echo_icon_hint_link($icon,$text,$hint,$link)
+    {
+    	echo '<a href="'.$link.'" data-toggle="tooltip" data-placement="top" title="'.$hint.'">';
+        echo_icon($icon);
+        echo $text.'</a>';
+    }
+
+
     function echo_span_label($style,$text)
     {
     	echo '<span class="label label-'.$style.'">'.$text.'</span>';
