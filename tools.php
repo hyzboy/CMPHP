@@ -71,6 +71,11 @@
         echo '<meta http-equiv="refresh" content="'.$time.';url='.$page.'">';
     }
 
+    function echo_link($text,$link)
+    {
+        echo '<a href="'.$link.'">'.$text.'</a>';
+    }
+
     function echo_span_glyph($glyph)
     {
     	echo '<span class="glyphicon glyphicon-'.$glyph.'"></span>';
