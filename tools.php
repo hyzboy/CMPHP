@@ -93,7 +93,6 @@
         echo $text.'</a>';
     }
 
-
     function echo_span_label($style,$text)
     {
     	echo '<span class="label label-'.$style.'">'.$text.'</span>';
