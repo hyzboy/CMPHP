@@ -48,7 +48,7 @@
 
         public function set_title_col($f)
         {
-            $this->title_cols[]=f;
+            $this->title_cols=$f;
         }
 
         public function set_table_style($ts)
