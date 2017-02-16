@@ -100,17 +100,18 @@
     	return $field_array;
     }
 
-    function select_table()//$sql,$table_name,$field_array,$where,$start,$count)
+    function select_table()//$sql,$table_name,$field_array,$where,$order,$start,$count)
     {
         $sql        =func_get_arg(0);
         $table_name =func_get_arg(1);
         $field_array =func_get_arg(2);
 
         if(func_num_args()>3)$where=func_get_arg(3);else $where=null;
-        if(func_num_args()>4)
+        if(func_num_args()>4)$order=func_get_arg(4);else $order=null;
+        if(func_num_args()>5)
         {
-            $start=func_get_arg(4);
-            $count=func_get_arg(5);
+            $start=func_get_arg(5);
+            $count=func_get_arg(6);
         }
         else
         {
@@ -139,6 +140,9 @@
 
         if($where!=null&&strlen($where)>3)
         	$sql_string=$sql_string." WHERE ".$where;
+
+        if($order!=null&&strlen($order)>3)
+        	$sql_string=$sql_string." ORDER BY ".$order;
 
         if($count!=0)$sql_string=$sql_string." LIMIT ".$start.",".$count;
 
