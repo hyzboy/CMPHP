@@ -2,12 +2,27 @@
 
     require_once "tools_sql.php";
 
+    class TableCol
+    {
+        public $text;               //显示文本
+        public $icon;               //图标
+        public $link;               //如果点击列将跳转的页面
+
+        public function __construct()
+        {
+            $this->text=func_get_arg(0);
+
+            if(func_num_args()>1)$this->icon=func_get_arg(1);else $this->icon=null;
+            if(func_num_args()>2)$this->link=func_get_arg(2);else $this->link=null;
+        }
+    };
+
     class UITable
     {
+        protected $title_cols=null;
         private $heading=null;
         private $heading_style="default";
         private $body=null;
-        protected $title_col=null;
         private $table_style="striped";
 
         public function set_heading($h)
@@ -25,9 +40,15 @@
             $this->body=$bt;
         }
 
+        public function set_title_col_text($f)
+        {
+            foreach($f as $tt)
+                $this->title_cols[]=new TableCol($tt);
+        }
+
         public function set_title_col($f)
         {
-            $this->title_col=$f;
+            $this->title_cols[]=f;
         }
 
         public function set_table_style($ts)
@@ -50,11 +71,26 @@
             else
                 echo '<table class="table table-responsive">';
 
-            if($this->title_col!=null)
+            if($this->title_cols!=null)
             {
                 echo '<tr>';
-                    foreach($this->title_col as $field)
-                        echo '<th>'.$field.'</th>';
+                    foreach($this->title_cols as $field)
+                    {
+                        echo '<th>';
+
+                        if($field->link)
+                            echo '<a href="'.$field->link.'">';
+                        
+                        echo $field->text;
+
+                        if($field->icon)
+                            echo_icon($field->icon);
+
+                        if($field->link)
+                            echo '</a>';
+
+                        echo '</th>';
+                    }
                 echo '</tr>';
             }
         }
