@@ -3,6 +3,7 @@
 	require_once 'tools.php';
 
 	require_once 'tools_session.php';
+	require_once 'tools_time.php';
 	require_once 'tools_file.php';
 	require_once 'tools_sql.php';
 
