@@ -5,13 +5,7 @@
 		private $name;
 		private $selected;
 
-		public function __construct1($n)
-		{
-			$this->name=$n;
-			$this->selected=null;
-		}
-
-		public function __construct2($n,$s)
+		public function __construct($n,$s)
 		{
 			$this->name=$n;
 			$this->selected=$s;
