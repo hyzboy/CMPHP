@@ -53,8 +53,17 @@
 		}
 	};//class UIButton
 
-	function create_js_button($text,$js_func)
+	//function create_js_button($text,$js_func,$style)
+	function create_js_button()
 	{
-		echo '<button type="button" onclick="'.$js_func.'" class="btn btn-primary">'.$text.'</button>';
+		$text=func_get_arg(0);
+		$js_func=func_get_arg(1);
+
+		if(func_num_args()>2)
+			$style=func_get_arg(2);
+		else
+			$style="primary";
+
+		echo '<button type="button" onclick="'.$js_func.'" class="btn btn-'.$style.'">'.$text.'</button>';
 	}
 ?>
