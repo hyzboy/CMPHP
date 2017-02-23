@@ -41,45 +41,9 @@
         return $realip;
     }
 
-    /*
-    *根据新浪IP查询接口获取IP所在地
+    /**
+    * 使用淘宝IP接口取得对应地域信息
     */
-    function getIPLoc($queryIP)
-    {
-        $url = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$queryIP;
-
-        $ch = curl_init($url);
-
-        //curl_setopt($ch,CURLOPT_ENCODING ,'utf8');
-
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回
-
-        $location = curl_exec($ch);
-
-        if($location[0]=='-')return $location;
-
-        $location = json_decode($location);
-
-        curl_close($ch);
-
-        $loc = "";
-
-        if($location===FALSE) return "未知";
-
-        if (empty($location->desc))
-        {
-            $loc = $location->province.$location->city.$location->district.$location->isp;
-        }
-        else
-        {
-            $loc = $location->desc;
-        }
-
-        return $loc;
-    }
-
     function get_ip_local($ip)
     {
         $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
