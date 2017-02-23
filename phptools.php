@@ -7,6 +7,7 @@
 	require_once 'tools_file.php';
 	require_once 'tools_sql.php';
 	require_once 'tools_button.php';
+	require_once 'tools_ip.php';
 
 	require_once 'form/form_select.php';
 	require_once 'form/form_radio.php';
