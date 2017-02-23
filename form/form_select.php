@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     function create_select()//$label,$name,$selected,$items)
     {

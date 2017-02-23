@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     function load_obj_from_jsonfile($filename)
     {

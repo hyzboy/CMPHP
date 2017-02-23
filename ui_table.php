@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     require_once "tools_sql.php";
 
@@ -80,7 +80,7 @@
 
                         if($field->link)
                             echo '<a href="'.$field->link.'">';
-                        
+
                         echo $field->text;
 
                         if($field->icon)

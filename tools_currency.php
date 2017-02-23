@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	require_once "ui_select.php";
 	require_once "ui_table.php";

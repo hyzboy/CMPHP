@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     //参考：http://www.w3schools.com/bootstrap/bootstrap_navbar.asp
 

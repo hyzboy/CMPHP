@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	function echo_button($link,$name)
 	{

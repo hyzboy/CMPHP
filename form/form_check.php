@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     function create_check($name,$value,$text,$checked)
     {

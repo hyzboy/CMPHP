@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	require_once "tools.php";
 	require_once "tools_session.php";

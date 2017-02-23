@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	class UIForm
 	{
@@ -9,7 +9,7 @@
 
 		private $style_class="form-horizontal";
 
-		private $width=0;
+		private $width=6;
 
 		private $panel_style=null;
 		private $panel_title=null;
