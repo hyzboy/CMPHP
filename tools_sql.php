@@ -13,7 +13,7 @@
 
         if($global_sql->connect_error)
         {
-            echo "Connection Database error: ".$sql->connect_error;
+            echo "Connection Database error: ".$global_sql->connect_error;
             return null;
         }
 
@@ -335,7 +335,7 @@
         if($where)
             $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name." where ".$where);
         else
-        $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
+            $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
 
         $result=$sql_result->fetch_row();
 
@@ -383,5 +383,22 @@
         $sql_result->close();
 
         return $result;
+    }
+
+
+    function sql_get_field_count_distinct($sql,$table_name,$field,$where)
+    {
+        if(!$sql)return null;
+
+        if($where)
+            $sql_result=$sql->query("select count(distinct(".$field.")) from ".$table_name." where ".$where);
+        else
+            $sql_result=$sql->query("select count(distinct(".$field.")) from ".$table_name);
+
+        $result=$sql_result->fetch_row();
+
+        $sql_result->close();
+
+        return $result[0];
     }
 ?>
