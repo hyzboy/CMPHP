@@ -13,7 +13,7 @@
     function include_bootstrap()
     {
         echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap.css">';
-        //echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">';
         echo '<link rel="stylesheet" href="3rdpty/sb-admin-2/css/sb-admin-2.css">';
         echo '<script src="3rdpty/sb-admin-2/js/sb-admin-2.js"></script>';
         echo '<script src="3rdpty/bootstrap/js/bootstrap.js"></script>';
@@ -93,9 +93,14 @@
         echo $text.'</a>';
     }
 
+    function get_span_label_html($style,$text)
+    {
+        return '<span class="label label-'.$style.'">'.$text.'</span>';
+    }
+
     function echo_span_label($style,$text)
     {
-    	echo '<span class="label label-'.$style.'">'.$text.'</span>';
+    	echo get_span_label_html($style,$text);
     }
 
     function get_icon_html($name)
@@ -108,9 +113,16 @@
         echo get_icon_html($name);
     }
 
-    function get_badge_html($text)
+    function get_badge_html()
     {
-        return '<span class="badge">'.$text.'</span>';
+        $text=func_get_arg(0);
+
+        if(func_num_args()>1)
+            $style="badge badge-".func_get_arg(1);
+        else
+            $style="badge";
+
+        return '<span class="'.$style.'">'.$text.'</span>';
     }
 
     function echo_badge($text)
