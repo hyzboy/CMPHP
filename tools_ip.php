@@ -53,6 +53,8 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回
         $result=json_decode(curl_exec($ch));
 
+        if(!$result)return null;
+
         if((string)$result->code=='1')
             return false;
 
