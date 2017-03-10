@@ -4,7 +4,7 @@
 
 	require_once 'tools_session.php';
 	require_once 'tools_time.php';
-	require_once 'tools_file.php';
+	require_once 'tools_json.php';
 	require_once 'tools_sql.php';
 	require_once 'tools_button.php';
 	require_once 'tools_ip.php';
@@ -21,3 +21,5 @@
 	require_once "ui_navbar.php";
 	require_once 'ui_table.php';
     require_once 'ui_pagination.php';
+
+	require_once 'chart/chart.php';

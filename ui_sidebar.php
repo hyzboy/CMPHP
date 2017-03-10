@@ -17,9 +17,14 @@
 			$this->sidebar_width=$sw;
         }
 
-        private function add($code,$text,$link)
+        public function add($code,$text,$link)
         {
             $this->bar_list[$code]=array("link"=>$link,"text"=>$text);
+        }
+
+        public function set_active($code)
+        {
+            $this->active_page=$code;
         }
 
         public function to_json()
@@ -50,7 +55,7 @@
                 $link=$obj["link"];
                 $text=$obj["text"];
 
-                echo_item($code,$text,$link);
+                $this->echo_item($code,$text,$link);
             }
 
 			echo '</div>
