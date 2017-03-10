@@ -36,10 +36,21 @@
 
         private $title=null;
 
-        private $category='x';              //分类位置
+        private $tip_trigger=null;
+        private $tip_formatter=null;
+
+        private $category=null;             //分类位置
         private $item_name=null;            //数据项名称
 
         private $save_as_image=false;
+
+        private $is_map=false;
+        private $map_name=null;
+
+        private $is_pie=false;
+        private $pie_radius=null;
+
+        private $vm_min,$vm_max;
 
         private $data_list=array();
 
@@ -62,6 +73,12 @@
             $this->title=$t;
         }
 
+        public function set_tooltip($tt,$tf)
+        {
+            $this->tip_trigger=$tt;
+            $this->tip_formatter=$tf;
+        }
+
         public function set_save_as_image($sai)
         {
             $this->save_as_image=$sai;
@@ -71,6 +88,24 @@
         {
             $this->category=$c;
             $this->item_name=$in;
+        }
+
+        public function set_visual_map($min,$max)
+        {
+            $this->vm_min=$min;
+            $this->vm_max=$max;
+        }
+
+        public function set_map($mn)
+        {
+            $this->is_map=true;
+            $this->map_name=$mn;
+        }
+
+        public function set_pie($radius)
+        {
+            $this->is_pie=true;
+            $this->pie_radius=$radius;
         }
 
         public function add_data($name,$type,$data)
@@ -114,6 +149,18 @@
                         saveAsImage:{}
                     }
                   },';
+        }
+
+        private function echo_visual_map()
+        {
+            echo 'visualMap:
+                {
+                    min: '.$this->vm_min.',
+                    max: '.$this->vm_max.',
+                    left: "left",
+                    top: "bottom",
+                    calculable: true
+                },';
         }
 
         private function echo_category()
@@ -174,6 +221,23 @@
                         name:"'.$obj->name.'",
                         type:"'.$obj->type.'",';
 
+                if($this->is_map)
+                {
+                    echo 'mapType:"'.$this->map_name.'",
+                          roam: false,
+                          label:
+                          {
+                            normal:{show:true},
+                            emphasis:{show:true},
+                          },';
+                }
+                else
+                if($this->is_pie)
+                {
+                    echo 'radius: "'.$this->pie_radius.'",
+                          center:["50%","50%"],';
+                }
+
                 if($obj->stack)
                 echo '  stack:"'.$obj->stack.'",';
 
@@ -183,14 +247,30 @@
                 echo '  data:[';
 
                 $value_first=true;
-                foreach($obj->value as $value)
+
+                if($this->is_map||$this->is_pie)
                 {
-                    if($value_first==false)
-                        echo ','.$value;
-                    else
+                    foreach($obj->value as $name=>$value)
                     {
+                        if($value_first==false)
+                            echo ',';
+                        else
+                            $value_first=false;
+
+                        echo '{name:"'.$name.'",value:'.$value.'}
+                        ';
+                    }
+                }
+                else
+                {
+                    foreach($obj->value as $value)
+                    {
+                        if($value_first==false)
+                            echo ',';
+                        else
+                            $value_first=false;
+
                         echo $value;
-                        $value_first=false;
                     }
                 }
 
@@ -224,17 +304,42 @@
                     ';
 
             if($this->title)
-            echo 'title:{text:"'.$this->title.'"},
-                  tooltip:{},';
+            echo 'title:{text:"'.$this->title.'"},';
 
-            $this->echo_grid();
-            $this->echo_legend();
+            if($this->tip_trigger||$this->tip_formatter)
+            {
+                echo 'tooltip:
+                        {';
+
+                    if($this->tip_trigger)
+                        echo 'trigger:"'.$this->tip_trigger.'",';
+
+                    if($this->tip_formatter)
+                        echo 'formatter:"'.$this->tip_formatter.'"';
+
+                echo '},';
+            }
 
             if($this->save_as_image)
                 $this->echo_toolbox();
 
-            $this->echo_axis('x');
-            $this->echo_axis('y');
+            if($this->is_map==false
+             ||$this->is_pie==false)
+            {
+                $this->echo_grid();
+                $this->echo_legend();
+
+                if($this->category!=null)
+                {
+                    $this->echo_axis('x');
+                    $this->echo_axis('y');
+                }
+            }
+
+            if($this->is_map)
+            {
+                $this->echo_visual_map();
+            }
 
             $this->echo_series();
 

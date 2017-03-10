@@ -22,6 +22,7 @@
     function include_echarts()
     {
         echo '<script src="3rdpty/echarts.js"></script>';
+        echo '<script src="3rdpty/china.js"></script>';
     }
 
     function echo_html_header($title)
