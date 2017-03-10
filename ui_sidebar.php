@@ -39,7 +39,7 @@
 			if($code==$this->active_page)
 				echo ' active';
 
-			echo '" href="'.$link.'.php">'.$text.'</a>';
+			echo '" href="'.$link.'">'.$text.'</a>';
         }
 
         public function start()
