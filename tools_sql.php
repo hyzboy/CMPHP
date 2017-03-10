@@ -333,9 +333,17 @@
         if(!$sql)return null;
 
         if($where)
-            $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name." where ".$where);
+            $sql_string="select ".$term."(".$field.") from ".$table_name." where ".$where;
         else
-            $sql_result=$sql->query("select ".$term."(".$field.") from ".$table_name);
+            $sql_string="select ".$term."(".$field.") from ".$table_name;
+
+        $sql_result=$sql->query($sql_string);
+
+        if(!$sql_result)
+        {
+            echo 'Query Error,SQLString: '.$sql_string.'<br/>';
+            return null;
+        }
 
         $result=$sql_result->fetch_row();
 
