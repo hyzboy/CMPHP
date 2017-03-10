@@ -36,8 +36,8 @@
 
         private $title=null;
 
-        private $x_type=null;
-        private $col_name=null;
+        private $category='x';              //分类位置
+        private $item_name=null;            //数据项名称
 
         private $save_as_image=false;
 
@@ -67,10 +67,10 @@
             $this->save_as_image=$sai;
         }
 
-        public function set_cols($xt,$cn)
+        public function set_category($c,$in)
         {
-            $this->x_type=$xt;
-            $this->col_name=$cn;
+            $this->category=$c;
+            $this->item_name=$in;
         }
 
         public function add_data($name,$type,$data)
@@ -97,6 +97,14 @@
             echo ']},';
         }
 
+        private function echo_grid()
+        {
+            echo '  grid:
+                    {
+                        containLabel:true
+                    },';
+        }
+
         private function echo_toolbox() //输出工具箱
         {
             echo 'toolbox:
@@ -108,18 +116,13 @@
                   },';
         }
 
-        private function echo_x()       //输出横向轴配置
+        private function echo_category()
         {
-            echo 'xAxis:[
-                  {';
-
-            if($this->x_type)
-            echo '  type:"'.$this->x_type.'",';
-
+            echo '  type:"category",';
             echo '  data:[';
 
             $first=true;
-            foreach($this->col_name as $name)
+            foreach($this->item_name as $name)
             {
                 if($first==false)
                     echo ',';
@@ -129,13 +132,29 @@
                 echo '"'.$name.'"';
             }
 
-            echo ']
-            }],';
+            echo ']';
         }
 
-        private function echo_y()
+        private function echo_value()
         {
-            echo 'yAxis:[{type:"value"}],';
+            echo '  type:"value"';
+        }
+
+        private function echo_axis($dir)
+        {
+            echo $dir.'Axis:[
+                  {';
+
+            if($this->category==$dir)       //如果分类在X
+            {
+                $this->echo_category();
+            }
+            else
+            {
+                $this->echo_value();
+            }
+
+            echo '}],';
         }
 
         private function echo_series()
@@ -184,7 +203,17 @@
 
         public function draw()
         {
-            echo '<div id="'.$this->id.'" style="width:'.$this->width.'px;height:'.$this->height.'px;"></div>';
+            echo '<div id="'.$this->id.'" style="width:';
+
+            if($this->width==0)
+                echo '100%;height:';
+            else
+                echo $this->width.'px;height:';
+
+            if($this->height==0)
+                echo '100%;"></div>';
+            else
+                echo $this->width.'px;"></div>';
 
             echo '<script type="text/javascript">
 
@@ -198,13 +227,14 @@
             echo 'title:{text:"'.$this->title.'"},
                   tooltip:{},';
 
+            $this->echo_grid();
             $this->echo_legend();
 
             if($this->save_as_image)
                 $this->echo_toolbox();
 
-            $this->echo_x();
-            $this->echo_y();
+            $this->echo_axis('x');
+            $this->echo_axis('y');
 
             $this->echo_series();
 
