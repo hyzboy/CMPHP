@@ -306,19 +306,18 @@
             if($this->title)
             echo 'title:{text:"'.$this->title.'"},';
 
+            echo 'tooltip:
+                    {';
             if($this->tip_trigger||$this->tip_formatter)
             {
-                echo 'tooltip:
-                        {';
 
                     if($this->tip_trigger)
                         echo 'trigger:"'.$this->tip_trigger.'",';
 
                     if($this->tip_formatter)
                         echo 'formatter:"'.$this->tip_formatter.'"';
-
-                echo '},';
             }
+            echo '},';
 
             if($this->save_as_image)
                 $this->echo_toolbox();
