@@ -94,6 +94,13 @@
         echo $text.'</a>';
     }
 
+    function echo_icon_link($icon,$text,$link)
+    {
+    	echo '<a href="'.$link.'" data-placement="top">';
+        echo_icon($icon);
+        echo $text.'</a>';
+    }
+
     function get_span_label_html($style,$text)
     {
         return '<span class="label label-'.$style.'">'.$text.'</span>';
