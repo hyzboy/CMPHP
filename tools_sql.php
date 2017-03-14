@@ -328,6 +328,30 @@
         return sql_update($sql,$table_name,$where,$data_array);
     }
 
+    function sql_get_record_count($sql,$table_name,$where)
+    {
+        if(!$sql)return null;
+
+        $sql_string="select count(*) from ".$table_name;
+
+        if($where)
+            $sql_string.=" where ".$where;
+
+        $sql_result=$sql->query($sql_string);
+
+        if(!$sql_result)
+        {
+            echo 'Query Error,SQLString: '.$sql_string.'<br/>';
+            return null;
+        }
+
+        $result=$sql_result->fetch_row();
+
+        $sql_result->close();
+
+        return $result[0];
+    }
+
     function sql_get_field_term($sql,$table_name,$field,$term,$where)
     {
         if(!$sql)return null;
