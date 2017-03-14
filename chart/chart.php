@@ -35,6 +35,7 @@
         private $width,$height;
 
         private $title=null;
+        private $sub_text=null;
 
         private $tip_trigger=null;
         private $tip_formatter=null;
@@ -71,6 +72,11 @@
         public function set_title($t)
         {
             $this->title=$t;
+        }
+
+        public function set_sub_text($t)
+        {
+            $this->sub_text=$t;
         }
 
         public function set_tooltip($tt,$tf)
@@ -288,10 +294,16 @@
             if($this->width==0)
                 echo '100%;height:';
             else
+            if($this->width<=1)
+                echo ($this->width*100).'%;height:';
+            else
                 echo $this->width.'px;height:';
 
             if($this->height==0)
                 echo '100%;"></div>';
+            else
+            if($this->height<=1)
+                echo ($this->height*100).'%;"></div>';
             else
                 echo $this->width.'px;"></div>';
 
@@ -304,19 +316,22 @@
                     ';
 
             if($this->title)
-            echo 'title:{text:"'.$this->title.'"},';
+            {
+                echo 'title:{text:"'.$this->title.'"';
+
+                if($this->sub_text)
+                    echo ',subtext:"'.$this->sub_text.'"';
+
+                echo '},';
+            }
 
             echo 'tooltip:
-                    {';
-            if($this->tip_trigger||$this->tip_formatter)
-            {
+                  {';
+                if($this->tip_trigger)
+                    echo 'trigger:"'.$this->tip_trigger.'",';
 
-                    if($this->tip_trigger)
-                        echo 'trigger:"'.$this->tip_trigger.'",';
-
-                    if($this->tip_formatter)
-                        echo 'formatter:"'.$this->tip_formatter.'"';
-            }
+                if($this->tip_formatter)
+                    echo 'formatter:"'.$this->tip_formatter.'"';
             echo '},';
 
             if($this->save_as_image)
