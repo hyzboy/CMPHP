@@ -7,9 +7,13 @@
     	$selected  =func_get_arg(2);
     	$items     =func_get_arg(3);
 
-    	echo '<div class="form-group" style="margin-left: 0px; margin-right: 0px;">
-                <label class="control-label col-sm-2">'.$label.'</label>
+    	echo '<div class="form-group" style="margin-left: 0px; margin-right: 0px;">';
+
+    	if($label)
+    	{
+            echo '<label class="control-label col-sm-2">'.$label.'</label>
                 <div class="col-sm-10">';
+        }
 
 //     	echo '<div class="dropdown">
 //                 <button class="btn btn-default dropdown-toggle" type="button" id="'.$label.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -50,6 +54,9 @@
             echo '<span class="help-block">'.$right_label.'</span>';
         }
 
-        echo '</div></div>';
+        if($label)
+            echo '</div>';
+
+        echo '</div>';
     }
 ?>
