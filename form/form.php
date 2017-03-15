@@ -4,6 +4,7 @@
 	{
 		protected $name;
 
+		private $upload=false;
 		private $method;
 		private $action=null;
 
@@ -51,6 +52,11 @@
 			$this->style_class=$s;
 		}
 
+		public function set_upload()
+		{
+            $this->upload=true;
+		}
+
 		public function set_panel_title($pt,$ps)
 		{
             $this->panel_title=$pt;
@@ -86,8 +92,9 @@
                     <div class="panel-body">';
             }
 
-			echo '<form name="'.$this->name.'" method="'.$this->method.'" style="margin-bottom: 0px;"';
+			echo '<form name="'.$this->name.'" method="'.$this->method.'" style="margin-bottom: 0px;" ';
 
+			if($this->upload)echo 'enctype="multipart/form-data" ';
 			if($this->action		!=null)echo 'action="'	.$this->action		.'" ';
 			if($this->style_class	!=null)echo 'class="'	.$this->style_class	.'">';
 
