@@ -401,11 +401,22 @@
         return sql_get_field_term($sql,$table_name,$field,"AVG",$where);
     }
 
-    function sql_get_field_distinct($sql,$table_name,$field)
+    function sql_get_field_distinct($sql,$table_name,$field,$where)
     {
         if(!$sql)return null;
 
-        $sql_result=$sql->query("select DISTINCT(".$field.") from ".$table_name.' ORDER BY '.$field);
+        if($where)
+            $sql_string="select DISTINCT(".$field.") from ".$table_name.' WHERE '.$where.' ORDER BY '.$field;
+        else
+            $sql_string="select DISTINCT(".$field.") from ".$table_name.' ORDER BY '.$field;
+
+        $sql_result=$sql->query($sql_string);
+
+        if(!$sql_result)
+        {
+            echo 'Error,SQLString: '.$sql_string.'<br/';
+            return null;
+        }
 
         $result=array();
 
