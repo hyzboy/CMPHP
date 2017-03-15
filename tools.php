@@ -142,4 +142,9 @@
     {
     	echo '<div class="alert alert-'.$style.'" role="alert">'.$text.'</div>';
     }
+
+    function echo_button_link($text,$style,$link)
+    {
+        echo '<a href="'.$link.'" class="btn btn-'.$style.'" role="button">'.$text.'</a>';
+    }
 ?>
