@@ -67,6 +67,11 @@
 			echo '<input type="text" name="'.$flag.'" value="'.date("Y-m-d H:i").'"/>';
 		}
 
+		function add_file_upload($id,$name)
+		{
+            echo '<input type="file" name="'.$name.'" id="'.$id.'"/>';
+		}
+
 		public function start()
 		{
             if($this->width>0)
@@ -96,6 +101,7 @@
 		{
 			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-primary" style="margin: 4px;"/>';
 			echo '</form>';
+
 			if($this->panel_title)
                 echo '</div></div>';
 
@@ -106,9 +112,12 @@
 		public function end()
 		{
 			echo '</form>';
+
 			if($this->panel_title)
                 echo '</div></div>';
-			echo '</div>';
+
+            if($this->width>0)
+                echo '</div>';
 		}
 	};//class UIForm
 
