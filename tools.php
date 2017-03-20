@@ -143,8 +143,13 @@
     	echo '<div class="alert alert-'.$style.'" role="alert">'.$text.'</div>';
     }
 
+    function get_button_link($text,$style,$link)
+    {
+        return '<a href="'.$link.'" class="btn btn-'.$style.'" role="button">'.$text.'</a>';
+    }
+
     function echo_button_link($text,$style,$link)
     {
-        echo '<a href="'.$link.'" class="btn btn-'.$style.'" role="button">'.$text.'</a>';
+        echo get_button_link($text,$style,$link);
     }
 ?>
