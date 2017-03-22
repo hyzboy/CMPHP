@@ -104,9 +104,16 @@
                 $this->add_hidden_value('form_time',$_SESSION["final_submit"]);
 		}
 
-		public function submit_end($submit_name)
+		public function submit_end()
 		{
-			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-primary" style="margin: 4px;"/>';
+            $submit_name=func_get_arg(0);
+
+            if(func_num_args()>1)
+                $button_style=func_get_arg(1);
+            else
+                $button_style="primary";
+
+			echo '<input type="submit" value="'.$submit_name.'" class="btn btn-'.$button_style.'" style="margin: 4px;"/>';
 			echo '</form>';
 
 			if($this->panel_title)

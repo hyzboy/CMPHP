@@ -111,14 +111,36 @@
     	echo get_span_label_html($style,$text);
     }
 
-    function get_icon_html($name)
+    function get_icon_html()
     {
-        return '<i class="fa fa-'.$name.'" aria-hidden="true"></i>';
+        $name=func_get_arg(0);
+
+        if(func_num_args()>1)
+        {
+            $style=func_get_arg(1);
+
+            return '<i class="fa fa-'.$name.' '.$style.'" aria-hidden="true"></i>';
+        }
+        else
+        {
+            return '<i class="fa fa-'.$name.'" aria-hidden="true"></i>';
+        }
     }
 
-    function echo_icon($name)
+    function echo_icon()
     {
-        echo get_icon_html($name);
+        $name=func_get_arg(0);
+
+        if(func_num_args()>1)
+        {
+            $style=func_get_arg(1);
+
+            echo get_icon_html($name,$style);
+        }
+        else
+        {
+            echo get_icon_html($name);
+        }
     }
 
     function get_badge_html()

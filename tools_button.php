@@ -11,5 +11,5 @@
             foreach($value_list as $key=>$value)
                 $ui->add_hidden_value($key,$value);
 
-        $ui->submit_end($button_text);
+        $ui->submit_end($button_text,$button_style);
     }
