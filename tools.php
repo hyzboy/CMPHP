@@ -2,27 +2,35 @@
 
     function include_jquery()
     {
-        echo '<script src="3rdpty/jquery-3.1.0.js"></script>';
+        echo '<script src="3rdpty/jquery-3.7.0.min.js"></script>';
     }
 
     function include_font_awesome()
     {
-        echo '<link rel="stylesheet" href="3rdpty/font-awesome/css/font-awesome.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/fontawesome-free-6.4.0-web/css/fontawesome.min.css">';
     }
 
     function include_bootstrap()
     {
-        echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap.css">';
-        echo '<link rel="stylesheet" href="3rdpty/bootstrap/css/bootstrap-theme.css">';
-        echo '<link rel="stylesheet" href="3rdpty/sb-admin-2/css/sb-admin-2.css">';
-        echo '<script src="3rdpty/sb-admin-2/js/sb-admin-2.js"></script>';
-        echo '<script src="3rdpty/bootstrap/js/bootstrap.js"></script>';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap.rtl.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-grid.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-grid.rtl.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-reboot.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-reboot.rtl.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-utilities.min.css">';
+        echo '<link rel="stylesheet" href="3rdpty/bootstrap-5.3.0-dist/css/bootstrap-utilities.rtl.min.css">';
+
+        echo '<link rel="stylesheet" href="3rdpty/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css">';
+        echo '<script src="3rdpty/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>';
+
+        echo '<script src="3rdpty/bootstrap-5.3.0-dist/js/bootstrap.min.js"></script>';
+        echo '<script src="3rdpty/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js"></script>';
     }
 
     function include_echarts()
     {
-        echo '<script src="3rdpty/echarts.js"></script>';
-        echo '<script src="3rdpty/china.js"></script>';
+        echo '<script src="chart/echarts.min.js"></script>';
     }
 
     function echo_html_header($title)
