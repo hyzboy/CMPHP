@@ -48,7 +48,7 @@
 //             $this->table_name=$tn;
 //         }
 //
-//         public function get_field_list()
+//         public function sql_get_field_list()
 //         {
 //             if($field_array)
 //                 return $field_array;
@@ -84,7 +84,7 @@
 //         }
 //     };//class SQLConnect
 
-    function get_field_list($sql,$table_name)
+    function sql_get_field_list($sql,$table_name)
     {
     	if($sql==null)return null;
 
@@ -100,7 +100,7 @@
     	return $field_array;
     }
 
-    function select_table()//$sql,$table_name,$field_array,$where,$order,$start,$count)
+    function sql_select_table()//$sql,$table_name,$field_array,$where,$order,$start,$count)
     {
         $sql        =func_get_arg(0);
         $table_name =func_get_arg(1);
@@ -156,17 +156,19 @@
         return null;
     }
 
-    function select_table_to_array()//$sql,$table_name,$field_array,$where,$start,$count)
+    function sql_select_table_to_array()//$sql,$table_name,$field_array,$where,$order,$start,$count)
     {
         $sql        =func_get_arg(0);
         $table_name =func_get_arg(1);
-        $field_array =func_get_arg(2);
+        $field_array=func_get_arg(2);
 
-        if(func_num_args()>3)$where=func_get_arg(3);
-        if(func_num_args()>4)
+        if(func_num_args()>3)$where=func_get_arg(3);else $where=null;
+        if(func_num_args()>4)$order=func_get_arg(4);else $order=null;
+
+        if(func_num_args()>5)
         {
-            $start=func_get_arg(4);
-            $count=func_get_arg(5);
+            $start=func_get_arg(5);
+            $count=func_get_arg(6);
         }
         else
         {
@@ -174,7 +176,7 @@
             $count=0;
         }
 
-        $sql_result=select_table($sql,$table_name,$field_array,$where,$start,$count);
+        $sql_result=sql_select_table($sql,$table_name,$field_array,$where,$order,$start,$count);
 
         if(!$sql_result)return(null);
 
