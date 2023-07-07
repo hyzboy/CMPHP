@@ -305,7 +305,7 @@
             if($this->height<=1)
                 echo ($this->height*100).'%;"></div>';
             else
-                echo $this->width.'px;"></div>';
+                echo $this->height.'px;"></div>';
 
             echo '<script type="text/javascript">
 
