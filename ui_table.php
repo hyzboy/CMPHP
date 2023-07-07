@@ -103,6 +103,12 @@
 
         public function echo_col    ($text){echo '<td>'.$text.'</td>';}
 
+        public function echo_multi_col($text_list)
+        {
+                foreach($text_list as $text)
+                    echo '<td>'.$text.'</td>';
+        }
+
         public function echo_row    ($text_list)
         {
             start_row();
